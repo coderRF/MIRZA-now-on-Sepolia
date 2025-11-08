@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRZA ECOSYSTEM - Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;700&family=Matisse+ITC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Copperplate+Gothic+Bold&display=swap" rel="stylesheet">
+    <!-- Add Josefin Sans font -->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Add Momo Trust font -->
+    <link href="https://fonts.cdnfonts.com/css/momo-trust" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co/QjcgRzkB/mizpp.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a1128;
+            --accent: #00f0f0;
+            --ecosystem-green: #00ff00;
+            --blockchain-white: #ffffff;
+            --defi-blue: #1e3a8a;
+            --coin-gold: #ffd700;
+            --nft-white: #f8f8ff;
+            --chain-white: #ffffff;
+            --mrz-cyan: #00f0f0;
+            --celebration-yellow: #ffff00;
+            --festival-pink: #ff1493;
+            --early-diamond: #b9f2ff;
+            --identity-green: #00ff7f;
+            --soulbound-cyan: #00f0f0;
+            --future-gold: #ffd700;
+            --nontransfer-green: #90ee90;
+            --sepolia-blue: #4169e1;
+            --text: #ffffff;
+            --bright-green: #00ff00;
+            --bright-white: #ffffff;
+            --deep-blue: #1a237e;
+            --defi-green: #00ff00;
+            --metamask-orange: #f6851b;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #0a1128, #192d55);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Crypto Homepage Animation */
+        .crypto-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* Blockchain Network Lines */
+        .blockchain-network {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        .network-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            height: 1px;
+            width: 100%;
+            animation: networkPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes networkPulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Floating Crypto Elements */
+        .crypto-element {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            filter: blur(1px);
+            animation: floatElement 15s ease-in-out infinite;
+        }
+
+        @keyframes floatElement {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(90deg); }
+            50% { transform: translateY(0px) rotate(180deg); }
+            75% { transform: translateY(20px) rotate(270deg); }
+        }
+
+        /* Data Stream Effect */
+        .data-stream {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--ecosystem-green), transparent);
+            animation: dataFlow 4s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes dataFlow {
+            0% { transform: translateY(-100px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* Particle System */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: particleFloat 20s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Holographic Grid */
+        .hologrid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 240, 240, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 240, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            opacity: 0.05;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Updated Cascade Animation Container */
+        .cascade-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .cascade-word {
+            position: absolute;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+            text-transform: uppercase;
+            opacity: 0;
+            text-shadow: 0 0 8px currentColor;
+            animation: straightFall 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes straightFall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.6;
+            }
+            95% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Individual word animations with scattered positions and delays */
+        .cascade-word:nth-child(1) { animation-delay: 0s; left: 3%; }
+        .cascade-word:nth-child(2) { animation-delay: 1.5s; left: 12%; }
+        .cascade-word:nth-child(3) { animation-delay: 3s; left: 22%; }
+        .cascade-word:nth-child(4) { animation-delay: 4.5s; left: 35%; }
+        .cascade-word:nth-child(5) { animation-delay: 6s; left: 48%; }
+        .cascade-word:nth-child(6) { animation-delay: 7.5s; left: 60%; }
+        .cascade-word:nth-child(7) { animation-delay: 9s; left: 72%; }
+        .cascade-word:nth-child(8) { animation-delay: 10.5s; left: 85%; }
+        .cascade-word:nth-child(9) { animation-delay: 12s; left: 95%; }
+        .cascade-word:nth-child(10) { animation-delay: 13.5s; left: 8%; }
+        .cascade-word:nth-child(11) { animation-delay: 15s; left: 18%; }
+        .cascade-word:nth-child(12) { animation-delay: 16.5s; left: 28%; }
+        .cascade-word:nth-child(13) { animation-delay: 18s; left: 42%; }
+        .cascade-word:nth-child(14) { animation-delay: 19.5s; left: 55%; }
+        .cascade-word:nth-child(15) { animation-delay: 21s; left: 68%; }
+        .cascade-word:nth-child(16) { animation-delay: 22.5s; left: 78%; }
+        .cascade-word:nth-child(17) { animation-delay: 24s; left: 88%; }
+        .cascade-word:nth-child(18) { animation-delay: 25.5s; left: 5%; }
+
+        /* Word Colors */
+        .mirza-ecosystem-color { color: var(--ecosystem-green); }
+        .mirza-chain-color { color: var(--chain-white); }
+        .mrz-coin-color { color: var(--coin-gold); }
+        .mirza-defi-color { color: var(--defi-green); }
+        .mirza-roadmap-color { color: var(--future-gold); }
+        .mirza-sbt-color { color: var(--soulbound-cyan); }
+        .mirza-nft-color { color: var(--nft-white); }
+        .mirza-dao-color { color: var(--accent); }
+        .mirza-marketplace-color { color: var(--festival-pink); }
+        .sepolia-color { color: var(--sepolia-blue); }
+        .blockchain-color { color: var(--blockchain-white); }
+        .web3-color { color: var(--identity-green); }
+        .decentralized-color { color: var(--early-diamond); }
+        .innovation-color { color: var(--celebration-yellow); }
+        .future-color { color: var(--future-gold); }
+        .token-color { color: var(--accent); }
+        .smart-contract-color { color: var(--defi-green); }
+        .crypto-color { color: var(--coin-gold); }
+
+        /* Simplified MIRZA Text */
+        .mirza-text {
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: clamp(1rem, 4vw, 1.2em);
+            color: #00f0f0;
+            display: inline-block;
+        }
+
+        /* Custom M letter for MIRZA */
+        .mirza-first-letter {
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 700;
+            color: #00f0f0;
+            font-size: clamp(1.1rem, 4.5vw, 1.3em);
+            display: inline-block;
+        }
+
+        /* Simplified Sepolia Text */
+        .sepolia-text {
+            color: var(--bright-white) !important;
+            font-weight: 900 !important;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', monospace;
+            display: inline-block;
+        }
+
+        /* Simplified NOW ON Text */
+        .now-on-text {
+            color: var(--accent) !important;
+            font-weight: 900 !important;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', monospace;
+            display: inline-block;
+        }
+
+        /* Simplified ECOSYSTEM Text */
+        .ecosystem-text {
+            color: var(--ecosystem-green) !important;
+            font-weight: 900 !important;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', monospace;
+            display: inline-block;
+        }
+
+        /* Simplified Festival Text */
+        .festival-text {
+            font-family: 'Momo Trust', sans-serif;
+            font-weight: 700;
+            color: var(--festival-pink) !important;
+        }
+
+        /* Simplified Logos */
+        .logo {
+            width: clamp(80px, 20vw, 100px);
+            height: clamp(80px, 20vw, 100px);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #00f0f0;
+        }
+
+        .menu-logo-img {
+            width: clamp(40px, 10vw, 50px);
+            height: clamp(40px, 10vw, 50px);
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            overflow: hidden;
+        }
+
+        .menu-logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ad-title-logo {
+            width: clamp(50px, 12vw, 60px);
+            height: clamp(50px, 12vw, 60px);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #00f0f0;
+            flex-shrink: 0;
+        }
+
+        .feature-logo {
+            width: clamp(40px, 10vw, 50px);
+            height: clamp(40px, 10vw, 50px);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #00f0f0;
+            flex-shrink: 0;
+        }
+
+        .button-logo {
+            width: clamp(30px, 8vw, 35px);
+            height: clamp(30px, 8vw, 35px);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #0a1128;
+        }
+
+        .quick-link-logo {
+            width: clamp(50px, 12vw, 60px);
+            height: clamp(50px, 12vw, 60px);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+            margin: 0 auto 1rem auto;
+        }
+
+        /* Simplified Text Styles */
+        .celebration-text {
+            color: var(--celebration-yellow) !important;
+            font-weight: 700;
+        }
+
+        .platform-text {
+            color: var(--bright-white) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .soulbound-text {
+            color: var(--soulbound-cyan) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .defi-text {
+            color: var(--defi-green) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .early-text {
+            color: var(--early-diamond) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .identity-text {
+            color: var(--identity-green) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .future-text {
+            color: var(--future-gold) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .nft-text {
+            color: var(--nft-white) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .unique-text {
+            color: var(--accent) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .bonuses-text {
+            color: var(--festival-pink) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .wallet-text {
+            color: var(--metamask-orange) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .mint-text {
+            color: var(--accent) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .roadmap-text {
+            color: var(--future-gold) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .discover-text {
+            color: var(--identity-green) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .explore-text, .feature-text-word, .offering-text, .offer-text, .see-text, .reward-text {
+            color: var(--future-gold) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .small-word {
+            font-weight: 700 !important;
+            display: inline-block;
+        }
+
+        /* Updated Quick Link Text Colors */
+        .quick-link-mint {
+            color: var(--future-gold) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .quick-link-sbt {
+            color: var(--future-gold) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .quick-link-small-text {
+            color: var(--defi-green) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .defi-platform-text {
+            color: var(--defi-green) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .defi-small-text {
+            color: var(--future-gold) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .ecosystem-small-text {
+            color: var(--future-gold) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .roadmap-small-text {
+            color: var(--ecosystem-green) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        /* Simplified Button Styles */
+        .mint-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            background: rgba(10, 17, 40, 0.9);
+            color: var(--bright-green);
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            padding: clamp(1rem, 3vw, 1.2rem) clamp(2rem, 6vw, 3rem);
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            border: 2px solid var(--bright-green);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .mint-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: rgba(0, 255, 0, 0.1);
+        }
+
+        .button-text {
+            color: var(--bright-green);
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .blockchain-text {
+            color: var(--blockchain-white) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .coin-text {
+            color: var(--coin-gold) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .chain-text {
+            color: var(--chain-white) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .mrz-text {
+            color: var(--mrz-cyan) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .nontransfer-text {
+            color: var(--nontransfer-green) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        /* Simplified Social Links */
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            color: var(--bg);
+            transform: translateY(-3px);
+        }
+
+        /* Simplified Menu Bar Text */
+        .menu-link {
+            display: block;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 1rem 1.5rem;
+            transition: all 0.3s ease;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            position: relative;
+            border-bottom: 1px solid rgba(0, 240, 240, 0.1);
+        }
+
+        .menu-link:hover {
+            color: var(--accent);
+            padding-left: 2rem;
+        }
+
+        .menu-link.active {
+            color: var(--accent);
+            background: rgba(0, 240, 240, 0.15);
+            border-left: 4px solid var(--accent);
+        }
+
+        .menu-brand {
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 700;
+            color: var(--accent);
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            display: inline-block;
+        }
+
+        /* Side Menu Bar */
+        .side-menu-container {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100vh;
+            background: rgba(10, 17, 40, 0.98);
+            backdrop-filter: blur(10px);
+            border-right: 2px solid rgba(0, 240, 240, 0.5);
+            z-index: 1000;
+            transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+
+        .side-menu-container.active {
+            left: 0;
+        }
+
+        .menu-header {
+            padding: 2rem 1.5rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 240, 240, 0.3);
+            text-align: center;
+        }
+
+        .menu-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            margin-bottom: 1rem;
+        }
+
+        .menu-nav {
+            list-style: none;
+            padding: 1.5rem 0;
+        }
+
+        .menu-link:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: rgba(0, 240, 240, 0.1);
+            transition: width 0.3s ease;
+        }
+
+        .menu-link:hover:before {
+            width: 100%;
+        }
+
+        /* Search Bar in Side Menu */
+        .menu-search-container {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 240, 240, 0.2);
+        }
+
+        .menu-search-bar {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 240, 240, 0.1);
+            border: 1px solid rgba(0, 240, 240, 0.3);
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .menu-search-bar:focus-within {
+            background: rgba(0, 240, 240, 0.15);
+            border-color: var(--accent);
+        }
+
+        .menu-search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.3rem 0.5rem;
+            outline: none;
+        }
+
+        .menu-search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .menu-search-button {
+            background: transparent;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            padding: 0.3rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-search-button:hover {
+            background: rgba(0, 240, 240, 0.2);
+            transform: scale(1.1);
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: clamp(40px, 10vw, 45px);
+            height: clamp(40px, 10vw, 45px);
+            background: rgba(10, 17, 40, 0.9);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(0, 240, 240, 0.1);
+            transform: scale(1.05);
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: clamp(20px, 6vw, 25px);
+            background-color: var(--accent);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Smart Slide Bar */
+        .slide-bar {
+            background: linear-gradient(90deg, rgba(0, 240, 240, 0.1), rgba(0, 240, 240, 0.2), rgba(0, 240, 240, 0.1));
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(0, 240, 240, 0.3);
+            overflow: hidden;
+            position: relative;
+            margin-top: 0;
+            z-index: 10;
+        }
+
+        .slide-content {
+            display: flex;
+            animation: slide 25s linear infinite;
+            white-space: nowrap;
+        }
+
+        .slide-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 0 2rem;
+            color: var(--accent);
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+        }
+
+        .slide-badge {
+            background: rgba(0, 240, 240, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            font-size: clamp(0.6rem, 1.8vw, 0.8rem);
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .slide-bar:hover .slide-content {
+            animation-play-state: paused;
+        }
+
+        /* Home Page Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.4s ease;
+        }
+        
+        .container.menu-open {
+            transform: translateX(280px);
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .title {
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: clamp(1.8rem, 8vw, 3.5rem);
+            font-weight: 700;
+            color: #00f0f0;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+        
+        .ad-container {
+            background: linear-gradient(135deg, rgba(10, 17, 40, 0.95), rgba(25, 45, 85, 0.95));
+            border: 2px solid #00f0f0;
+            border-radius: 25px;
+            padding: clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem);
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .ad-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .ad-title {
+            color: #00f0f0;
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .ad-title-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .features-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 1.5rem;
+            padding: clamp(1rem, 3vw, 1.5rem) clamp(1rem, 4vw, 2rem);
+            background: rgba(0, 240, 240, 0.08);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 240, 240, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateX(10px) scale(1.02);
+            background: rgba(0, 240, 240, 0.12);
+        }
+        
+        .feature-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .feature-text {
+            color: #ffffff;
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            font-weight: 600;
+            text-align: left;
+        }
+        
+        .ad-tagline {
+            background: rgba(0, 240, 240, 0.1);
+            padding: clamp(1rem, 3vw, 1.5rem);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 240, 240, 0.4);
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .tagline-text {
+            color: #00f0f0;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            letter-spacing: 2px;
+        }
+        
+        .button-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Quick Links Section */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .quick-link-card {
+            background: linear-gradient(135deg, rgba(25, 45, 85, 0.9), rgba(10, 17, 40, 0.9));
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: clamp(1rem, 3vw, 2rem);
+            text-align: center;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-link-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .quick-link-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .quick-link-title {
+            font-family: 'Orbitron', monospace;
+            color: var(--accent);
+            font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .quick-link-description {
+            color: var(--text);
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+            line-height: 1.5;
+        }
+
+        /* Newsletter Section Styles */
+        .newsletter-section {
+            background: linear-gradient(135deg, rgba(10, 17, 40, 0.95), rgba(25, 45, 85, 0.95));
+            border-top: 2px solid rgba(0, 240, 240, 0.5);
+            border-bottom: 2px solid rgba(0, 240, 240, 0.5);
+            padding: 4rem 0;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://i.ibb.co/QjcgRzkB/mizpp.png') center/contain no-repeat;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .newsletter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .newsletter-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .newsletter-text {
+            color: var(--accent) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .updated-text {
+            color: var(--future-gold) !important;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .newsletter-subtitle {
+            color: var(--text);
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .newsletter-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .newsletter-form-container {
+            background: rgba(0, 240, 240, 0.08);
+            border: 1px solid rgba(0, 240, 240, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            background: rgba(10, 17, 40, 0.8);
+            border: 2px solid rgba(0, 240, 240, 0.4);
+            border-radius: 12px;
+            padding: 1.2rem 1rem 0.8rem;
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--accent);
+            background: rgba(10, 17, 40, 0.9);
+            box-shadow: 0 0 15px rgba(0, 240, 240, 0.3);
+        }
+
+        .newsletter-input:focus + .newsletter-label,
+        .newsletter-input:not(:placeholder-shown) + .newsletter-label {
+            top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+
+        .newsletter-label {
+            position: absolute;
+            top: 1.2rem;
+            left: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: rgba(10, 17, 40, 0.9);
+            padding: 0 0.5rem;
+        }
+
+        .newsletter-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, rgba(0, 240, 240, 0.2), rgba(0, 240, 240, 0.1));
+            color: var(--bright-green);
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 1.2rem 2rem;
+            border-radius: 50px;
+            border: 2px solid var(--bright-green);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .newsletter-button:hover {
+            transform: translateY(-3px);
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+        }
+
+        .newsletter-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .button-spinner {
+            display: none;
+        }
+
+        .button-spinner.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--bright-green);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .newsletter-message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .newsletter-message.success {
+            display: block;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.4);
+            color: var(--bright-green);
+        }
+
+        .newsletter-message.error {
+            display: block;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            color: #ff6b6b;
+        }
+
+        .newsletter-benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 240, 240, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 240, 240, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateX(10px);
+            background: rgba(0, 240, 240, 0.1);
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-text {
+            color: var(--text);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .main-footer {
+            background: rgba(10, 17, 40, 0.95);
+            border-top: 2px solid rgba(0, 240, 240, 0.5);
+            padding: 3rem 0;
+            margin-top: 4rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        .social-link:hover .social-icon {
+            filter: brightness(0) saturate(100%);
+        }
+
+        /* Footer Year Text */
+        .footer-year {
+            font-weight: 900 !important;
+            display: inline-block;
+        }
+        
+        /* Slide Bar Logo */
+        .slide-logo {
+            width: clamp(20px, 6vw, 25px);
+            height: clamp(20px, 6vw, 25px);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid var(--accent);
+        }
+        
+        .slide-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .feature-text {
+                font-size: 1.1rem;
+            }
+            
+            .newsletter-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .newsletter-form-container {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .side-menu-container {
+                width: 250px;
+                left: -250px;
+            }
+            
+            .container.menu-open {
+                transform: translateX(250px);
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .title {
+                letter-spacing: 2px;
+            }
+            
+            .ad-container {
+                border-radius: 20px;
+            }
+            
+            .ad-title {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .feature {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .feature-text {
+                text-align: center;
+                font-size: 1rem;
+            }
+            
+            .mint-button {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .quick-links {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .quick-link-card {
+                padding: 1.5rem;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .slide-item {
+                gap: 1rem;
+                padding: 0 1.5rem;
+                font-size: 0.8rem;
+            }
+
+            .slide-badge {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.6rem;
+            }
+            
+            .newsletter-section {
+                padding: 3rem 0;
+            }
+            
+            .newsletter-container {
+                padding: 0 1.5rem;
+            }
+            
+            .newsletter-form-container {
+                padding: 1.5rem;
+            }
+            
+            .benefit-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+                padding: 1.2rem;
+            }
+            
+            .benefit-text {
+                font-size: 1rem;
+            }
+            
+            /* Adjust cascade animation for mobile */
+            .cascade-word {
+                font-size: clamp(0.7rem, 1.8vw, 1rem);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+            
+            .title {
+                letter-spacing: 1px;
+            }
+            
+            .ad-container {
+                border-radius: 15px;
+            }
+            
+            .ad-title {
+                font-size: 1.5rem;
+            }
+            
+            .ad-title-logo {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .feature {
+                padding: 1rem;
+            }
+            
+            .feature-logo {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .feature-text {
+                font-size: 0.9rem;
+            }
+            
+            .mint-button {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .tagline-text {
+                letter-spacing: 1px;
+            }
+            
+            .quick-link-card {
+                padding: 1rem;
+            }
+            
+            .quick-link-title {
+                font-size: 1.1rem;
+            }
+            
+            .quick-link-description {
+                font-size: 0.85rem;
+            }
+            
+            .menu-toggle {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .newsletter-section {
+                padding: 2rem 0;
+            }
+            
+            .newsletter-container {
+                padding: 0 1rem;
+            }
+            
+            .newsletter-form-container {
+                padding: 1.2rem;
+            }
+            
+            .newsletter-input {
+                padding: 1rem 0.8rem 0.6rem;
+            }
+            
+            .newsletter-button {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .title {
+                font-size: 1.6rem;
+            }
+            
+            .ad-title {
+                font-size: 1.3rem;
+            }
+            
+            .feature-text {
+                font-size: 0.85rem;
+            }
+            
+            .mint-button {
+                font-size: 0.9rem;
+                padding: 0.7rem 1.2rem;
+            }
+            
+            .tagline-text {
+                font-size: 0.8rem;
+            }
+            
+            .slide-item {
+                font-size: 0.7rem;
+                gap: 0.8rem;
+                padding: 0 1rem;
+            }
+            
+            .slide-badge {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .title {
+                font-size: 1.4rem;
+            }
+            
+            .ad-title {
+                font-size: 1.2rem;
+            }
+            
+            .feature-text {
+                font-size: 0.8rem;
+            }
+            
+            .mint-button {
+                font-size: 0.85rem;
+                padding: 0.6rem 1rem;
+            }
+            
+            .tagline-text {
+                font-size: 0.75rem;
+            }
+            
+            .slide-item {
+                font-size: 0.65rem;
+                gap: 0.6rem;
+                padding: 0 0.8rem;
+            }
+            
+            .slide-badge {
+                font-size: 0.55rem;
+                padding: 0.15rem 0.4rem;
+            }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .feature:hover {
+                transform: none;
+            }
+            
+            .quick-link-card:hover {
+                transform: none;
+            }
+            
+            .mint-button:hover {
+                transform: none;
+            }
+            
+            .social-link:hover {
+                transform: none;
+            }
+            
+            .menu-link:hover {
+                padding-left: 1.5rem;
+            }
+            
+            .benefit-item:hover {
+                transform: none;
+            }
+            
+            .newsletter-button:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Crypto Homepage Animation -->
+    <div class="crypto-animation">
+        <div class="hologrid"></div>
+        <div class="blockchain-network">
+            <div class="network-line" style="top: 20%; animation-delay: 0s;"></div>
+            <div class="network-line" style="top: 40%; animation-delay: 2s;"></div>
+            <div class="network-line" style="top: 60%; animation-delay: 4s;"></div>
+            <div class="network-line" style="top: 80%; animation-delay: 6s;"></div>
+        </div>
+        <!-- Crypto elements will be generated by JavaScript -->
+    </div>
+
+    <!-- Updated Cascade Animation -->
+    <div class="cascade-container">
+        <div class="cascade-word mirza-ecosystem-color">MIRZA ECOSYSTEM</div>
+        <div class="cascade-word mirza-chain-color">MIRZA CHAIN</div>
+        <div class="cascade-word mrz-coin-color">MRZ COIN</div>
+        <div class="cascade-word mirza-defi-color">MIRZA DeFi</div>
+        <div class="cascade-word mirza-roadmap-color">MIRZA ROADMAP</div>
+        <div class="cascade-word mirza-sbt-color">MIRZA SBT</div>
+        <div class="cascade-word mirza-nft-color">MIRZA NFT</div>
+        <div class="cascade-word mirza-dao-color">MIRZA DAO</div>
+        <div class="cascade-word mirza-marketplace-color">MIRZA NFT MARKETPLACE</div>
+        <div class="cascade-word sepolia-color">SEPOLIA</div>
+        <div class="cascade-word blockchain-color">BLOCKCHAIN</div>
+        <div class="cascade-word web3-color">WEB3</div>
+        <div class="cascade-word decentralized-color">DECENTRALIZED</div>
+        <div class="cascade-word innovation-color">INNOVATION</div>
+        <div class="cascade-word future-color">FUTURE</div>
+        <div class="cascade-word token-color">TOKEN</div>
+        <div class="cascade-word smart-contract-color">SMART CONTRACT</div>
+        <div class="cascade-word crypto-color">CRYPTO</div>
+    </div>
+
+    <!-- Side Menu Bar -->
+    <div class="side-menu-container" id="sideMenu">
+        <div class="menu-header">
+            <a href="index.html" class="menu-logo">
+                <div class="menu-logo-img">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                </div>
+                <span class="menu-brand"><span class="mirza-first-letter">M</span>IRZA</span>
+            </a>
+        </div>
+        
+        <!-- Search Bar in Side Menu -->
+        <div class="menu-search-container">
+            <div class="menu-search-bar">
+                <input type="text" class="menu-search-input" placeholder="Search MIRZA Ecosystem...">
+                <button class="menu-search-button">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <ul class="menu-nav">
+            <li><a href="index.html" class="menu-link active">Home</a></li>
+            <li><a href="mint.html" class="menu-link"><span class="mint-text">Mint</span> <span class="soulbound-text">SBT</span></a></li>
+            <li><a href="defi.html" class="menu-link"><span class="defi-text">DeFi</span></a></li>
+            <li><a href="ecosystem.html" class="menu-link"><span class="ecosystem-text">Ecosystem</span></a></li>
+            <li><a href="roadmap.html" class="menu-link"><span class="roadmap-text">Roadmap</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Menu Toggle Button -->
+    <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Smart Slide Bar -->
+    <div class="slide-bar">
+        <div class="slide-content">
+            <div class="slide-item">
+                <span class="slide-badge">NEW</span>
+                <div class="slide-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                </div>
+                <span><span class="festival-text">🎉</span> <span class="mirza-text"><span class="mirza-first-letter">M</span>IRZA</span> <span class="soulbound-text">SBT</span> <span class="now-on-text">NOW ON</span> <span class="sepolia-text">SEPOLIA</span>! JOIN THE <span class="sepolia-text">REVOLUTION</span> <span class="festival-text">🎉</span></span>
+            </div>
+            <div class="slide-item">
+                <span class="slide-badge">HOT</span>
+                <div class="slide-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                </div>
+                <span><span class="festival-text">🎉</span> LIMITED TIME <span class="offer-text">OFFER</span> - <span class="mint-text">MINT</span> YOUR <span class="soulbound-text">SBT</span> NOW ON <span class="sepolia-text">SEPOLIA</span>! <span class="festival-text">🎉</span></span>
+            </div>
+            <div class="slide-item">
+                <span class="slide-badge">UPDATE</span>
+                <div class="slide-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                </div>
+                <span><span class="future-text">⭐</span> EXCLUSIVE <span class="reward-text">REWARDS</span> FOR <span class="early-text">EARLY SUPPORTERS</span> <span class="future-text">⭐</span></span>
+            </div>
+            <div class="slide-item">
+                <span class="slide-badge">ALERT</span>
+                <div class="slide-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                </div>
+                <span><span class="festival-text">🎉</span> SPECIAL <span class="sepolia-text">SEPOLIA</span> <span class="bonuses-text">BONUSES</span> AVAILABLE <span class="festival-text">🎉</span></span>
+            </div>
+            <div class="slide-item">
+                <span class="slide-badge">TRENDING</span>
+                <div class="slide-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                </div>
+                <span><span class="future-text">🔥</span> OVER 10,000 <span class="soulbound-text">SBTs</span> MINTED ON <span class="sepolia-text">SEPOLIA</span>! <span class="future-text">🔥</span></span>
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="slide-item">
+                <span class="slide-badge">NEW</span>
+                <div class="slide-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                </div>
+                <span><span class="festival-text">🎉</span> <span class="mirza-text"><span class="mirza-first-letter">M</span>IRZA</span> <span class="soulbound-text">SBT</span> <span class="now-on-text">NOW ON</span> <span class="sepolia-text">SEPOLIA</span>! JOIN THE <span class="sepolia-text">REVOLUTION</span> <span class="festival-text">🎉</span></span>
+            </div>
+            <div class="slide-item">
+                <span class="slide-badge">HOT</span>
+                <div class="slide-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                </div>
+                <span><span class="festival-text">🎉</span> LIMITED TIME <span class="offer-text">OFFER</span> - <span class="mint-text">MINT</span> YOUR <span class="soulbound-text">SBT</span> NOW ON <span class="sepolia-text">SEPOLIA</span>! <span class="festival-text">🎉</span></span>
+            </div>
+            <div class="slide-item">
+                <span class="slide-badge">UPDATE</span>
+                <div class="slide-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                </div>
+                <span><span class="future-text">⭐</span> EXCLUSIVE <span class="reward-text">REWARDS</span> FOR <span class="early-text">EARLY SUPPORTERS</span> <span class="future-text">⭐</span></span>
+            </div>
+            <div class="slide-item">
+                <span class="slide-badge">ALERT</span>
+                <div class="slide-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                </div>
+                <span><span class="festival-text">🎉</span> SPECIAL <span class="sepolia-text">SEPOLIA</span> <span class="bonuses-text">BONUSES</span> AVAILABLE <span class="festival-text">🎉</span></span>
+            </div>
+            <div class="slide-item">
+                <span class="slide-badge">TRENDING</span>
+                <div class="slide-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                </div>
+                <span><span class="future-text">🔥</span> OVER 10,000 <span class="soulbound-text">SBTs</span> MINTED ON <span class="sepolia-text">SEPOLIA</span>! <span class="future-text">🔥</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Page Content -->
+    <div class="container" id="mainContainer">
+        <div class="header">
+            <div class="logo">
+                <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+            </div>
+            <h1 class="title"><span class="mirza-text"><span class="mirza-first-letter">M</span>IRZA</span> <span class="ecosystem-text">ECOSYSTEM</span></h1>
+        </div>
+        
+        <div class="ad-container">
+            <div class="ad-content">
+                <h3 class="ad-title">
+                    <div class="ad-title-logo">
+                        <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                    </div>
+                    <span class="mirza-text"><span class="mirza-first-letter">M</span>IRZA</span> <span class="soulbound-text">SBT</span> <span class="now-on-text">NOW ON</span> <span class="sepolia-text">SEPOLIA</span>
+                </h3>
+                
+                <div class="features-container">
+                    <div class="feature">
+                        <div class="feature-logo">
+                            <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                        </div>
+                        <p class="feature-text">
+                            <span class="small-word">Your</span> <span class="identity-text">Digital Identity</span> <span class="small-word">on</span> <span class="mirza-text"><span class="mirza-first-letter">M</span>IRZA</span> <span class="ecosystem-text">ECOSYSTEM</span>
+                        </p>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-logo">
+                            <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                        </div>
+                        <p class="feature-text">
+                            <span class="small-word">Forever</span> <span class="small-word">Linked</span> <span class="small-word">to</span> <span class="small-word">Your</span> <span class="wallet-text">Wallet</span> - <span class="soulbound-text">Soulbound Token</span> <span class="small-word">of</span> <span class="mirza-text"><span class="mirza-first-letter">M</span>IRZA</span> <span class="ecosystem-text">ECOSYSTEM</span>
+                        </p>
+                    </div>
+                    
+                    <!-- New Early Supporter Box -->
+                    <div class="feature">
+                        <div class="feature-logo">
+                            <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                        </div>
+                        <p class="feature-text">
+                            <span class="small-word">Marked</span> <span class="small-word">as</span> <span class="small-word">an</span> <span class="early-text">Early Supporter</span> <span class="small-word">of</span> <span class="mirza-text"><span class="mirza-first-letter">M</span>IRZA</span> <span class="ecosystem-text">ECOSYSTEM</span>
+                        </p>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-logo">
+                            <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                        </div>
+                        <p class="feature-text">
+                            <span class="future-text">Future Beneficial</span> <span class="small-word">access</span> <span class="small-word">to</span> <span class="mirza-text"><span class="mirza-first-letter">M</span>IRZA</span> <span class="ecosystem-text">ECOSYSTEM</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="ad-tagline">
+                    <p class="tagline-text">
+                        <span class="festival-text">🎉</span> <span class="sepolia-text">SEPOLIA LAUNCH</span> • <span class="nontransfer-text">NON-TRANSFERABLE</span> • <span class="small-word">PERMANENT</span> • <span class="unique-text">UNIQUE</span> <span class="festival-text">🎉</span>
+                    </p>
+                </div>
+                
+                <a href="mint.html" class="mint-button">
+                    <div class="button-logo">
+                        <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="MIRZA Logo">
+                    </div>
+                    <span class="button-text">GET EARLY ACCESS</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Links Section -->
+        <div class="quick-links">
+            <a href="mint.html" class="quick-link-card">
+                <div class="quick-link-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="Mint SBT">
+                </div>
+                <h3 class="quick-link-title"><span class="quick-link-mint">MINT</span> <span class="quick-link-sbt">SBT</span></h3>
+                <p class="quick-link-description"><span class="quick-link-small-text">Join</span> <span class="quick-link-small-text">the</span> <span class="sepolia-text">Sepolia launch</span> - <span class="quick-link-small-text">Get</span> <span class="quick-link-small-text">your</span> <span class="unique-text">unique</span> <span class="soulbound-text">Soulbound Token</span></p>
+            </a>
+            <a href="defi.html" class="quick-link-card">
+                <div class="quick-link-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="DeFi Platform">
+                </div>
+                <h3 class="quick-link-title"><span class="defi-text">DeFi</span> <span class="defi-platform-text">PLATFORM</span></h3>
+                <p class="quick-link-description"><span class="defi-small-text">Explore</span> <span class="defi-text">decentralized finance</span> <span class="defi-small-text">features</span></p>
+            </a>
+            <a href="ecosystem.html" class="quick-link-card">
+                <div class="quick-link-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="Ecosystem">
+                </div>
+                <h3 class="quick-link-title"><span class="ecosystem-text">ECOSYSTEM</span></h3>
+                <p class="quick-link-description"><span class="ecosystem-small-text">Discover</span> <span class="ecosystem-small-text">our</span> <span class="ecosystem-small-text">full</span> <span class="platform-text">platform</span> <span class="ecosystem-small-text">offerings</span></p>
+            </a>
+            <a href="roadmap.html" class="quick-link-card">
+                <div class="quick-link-logo">
+                    <img src="https://i.ibb.co/QjcgRzkB/mizpp.png" alt="Roadmap">
+                </div>
+                <h3 class="quick-link-title"><span class="roadmap-text">ROADMAP</span></h3>
+                <p class="quick-link-description"><span class="roadmap-small-text">See</span> <span class="roadmap-small-text">our</span> <span class="roadmap-small-text">exciting</span> <span class="future-text">future</span> <span class="roadmap-small-text">plans</span></p>
+            </a>
+        </div>
+        
+        <!-- Newsletter Section -->
+        <section class="newsletter-section">
+            <div class="newsletter-container">
+                <div class="newsletter-header">
+                    <h2 class="newsletter-title">
+                        <span class="newsletter-text">STAY</span> <span class="updated-text">UPDATED</span>
+                    </h2>
+                    <p class="newsletter-subtitle">
+                        <span class="small-word">Get</span> <span class="future-text">exclusive updates</span> <span class="small-word">on</span> <span class="mirza-text"><span class="mirza-first-letter">M</span>IRZA</span> <span class="ecosystem-text">ECOSYSTEM</span> <span class="small-word">developments</span>
+                    </p>
+                </div>
+                
+                <div class="newsletter-content">
+                    <div class="newsletter-form-container">
+                        <form id="newsletter-form" class="newsletter-form">
+                            <div class="form-group">
+                                <input type="text" id="newsletter-name" name="name" class="newsletter-input" placeholder="Your Name" required>
+                                <label for="newsletter-name" class="newsletter-label">Name</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="email" id="newsletter-email" name="email" class="newsletter-input" placeholder="Your Email" required>
+                                <label for="newsletter-email" class="newsletter-label">Email</label>
+                            </div>
+                            
+                            <button type="submit" class="newsletter-button">
+                                <span class="button-text">SUBSCRIBE NOW</span>
+                                <div class="button-spinner" id="button-spinner">
+                                    <div class="spinner"></div>
+                                </div>
+                            </button>
+                        </form>
+                        
+                        <div class="newsletter-message" id="newsletter-message"></div>
+                    </div>
+                    
+                    <div class="newsletter-benefits">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🔓</div>
+                            <div class="benefit-text">
+                                <span class="small-word">Early</span> <span class="early-text">access</span> <span class="small-word">to</span> <span class="small-word">new</span> <span class="feature-text-word">features</span>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">💎</div>
+                            <div class="benefit-text">
+                                <span class="small-word">Exclusive</span> <span class="reward-text">rewards</span> <span class="small-word">for</span> <span class="small-word">subscribers</span>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📰</div>
+                            <div class="benefit-text">
+                                <span class="small-word">Latest</span> <span class="small-word">news</span> <span class="small-word">on</span> <span class="sepolia-text">SEPOLIA</span> <span class="small-word">updates</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" class="social-link">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968823.png" alt="Twitter" class="social-icon">
+                    <span class="social-text">TWITTER</span>
+                </a>
+                <a href="https://discord.gg/YmVjJxgq9g" target="_blank" class="social-link">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord" class="social-icon">
+                    <span class="social-text">DISCORD</span>
+                </a>
+                <a href="#" class="social-link">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968846.png" alt="Github" class="social-icon">
+                    <span class="social-text">GITHUB</span>
+                </a>
+            </div>
+            <p>© <span class="footer-year">2023</span> <span class="mirza-text"><span class="mirza-first-letter">M</span>IRZA</span> <span class="ecosystem-text">ECOSYSTEM</span> <span class="small-word">ALL</span> <span class="small-word">RIGHTS</span> <span class="small-word">RESERVED</span></p>
+            <p><span class="small-word">BUILT</span> <span class="small-word">FOR</span> <span class="small-word">THE</span> <span class="mirza-text"><span class="mirza-first-letter">M</span>IRZA</span> <span class="small-word">COMMUNITY</span></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your public key
+        (function() {
+            emailjs.init("WUsD-SKJRnGzdX95K");
+        })();
+        
+        // Generate Crypto Animation Elements
+        function generateCryptoAnimation() {
+            const cryptoAnimation = document.querySelector('.crypto-animation');
+            const colors = ['#00f0f0', '#00ff00', '#ffd700', '#ffffff', '#ff1493'];
+            
+            // Generate floating crypto elements
+            for (let i = 0; i < 15; i++) {
+                const element = document.createElement('div');
+                element.className = 'crypto-element';
+                element.style.width = Math.random() * 40 + 10 + 'px';
+                element.style.height = element.style.width;
+                element.style.left = Math.random() * 100 + '%';
+                element.style.top = Math.random() * 100 + '%';
+                element.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]} 0%, transparent 70%)`;
+                element.style.animationDelay = Math.random() * 15 + 's';
+                element.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                cryptoAnimation.appendChild(element);
+            }
+            
+            // Generate data streams
+            for (let i = 0; i < 8; i++) {
+                const stream = document.createElement('div');
+                stream.className = 'data-stream';
+                stream.style.left = Math.random() * 100 + '%';
+                stream.style.animationDelay = Math.random() * 4 + 's';
+                stream.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                cryptoAnimation.appendChild(stream);
+            }
+            
+            // Generate particles
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                cryptoAnimation.appendChild(particle);
+            }
+        }
+        
+        // Newsletter form handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate crypto animation
+            generateCryptoAnimation();
+            
+            const newsletterForm = document.getElementById('newsletter-form');
+            const newsletterMessage = document.getElementById('newsletter-message');
+            const buttonSpinner = document.getElementById('button-spinner');
+            
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const name = document.getElementById('newsletter-name').value;
+                const email = document.getElementById('newsletter-email').value;
+                
+                // Show loading state
+                newsletterForm.querySelector('.button-text').textContent = 'SUBSCRIBING...';
+                buttonSpinner.classList.add('active');
+                newsletterForm.querySelector('button').disabled = true;
+                
+                // Prepare template parameters
+                const templateParams = {
+                    name: name,
+                    email: email,
+                    to_email: email, // For auto-reply
+                    date: new Date().toLocaleDateString()
+                };
+                
+                // Send auto-reply to subscriber
+                emailjs.send('service_tusis6b', 'template_q97e8w1', templateParams)
+                    .then(function(response) {
+                        console.log('Auto-reply sent successfully!', response.status, response.text);
+                        
+                        // Send admin notification
+                        return emailjs.send('service_tusis6b', 'template_3s29dsf', {
+                            name: name,
+                            email: email,
+                            date: new Date().toLocaleDateString(),
+                            time: new Date().toLocaleTimeString()
+                        });
+                    })
+                    .then(function(response) {
+                        console.log('Admin notification sent successfully!', response.status, response.text);
+                        
+                        // Show success message
+                        showMessage('Thank you for subscribing! Check your email for confirmation.', 'success');
+                        
+                        // Reset form
+                        newsletterForm.reset();
+                    })
+                    .catch(function(error) {
+                        console.error('Error sending email:', error);
+                        showMessage('Sorry, there was an error. Please try again later.', 'error');
+                    })
+                    .finally(function() {
+                        // Reset button state
+                        newsletterForm.querySelector('.button-text').textContent = 'SUBSCRIBE NOW';
+                        buttonSpinner.classList.remove('active');
+                        newsletterForm.querySelector('button').disabled = false;
+                    });
+            });
+            
+            function showMessage(text, type) {
+                newsletterMessage.textContent = text;
+                newsletterMessage.className = 'newsletter-message ' + type;
+                
+                // Hide message after 5 seconds
+                setTimeout(function() {
+                    newsletterMessage.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Form input animations
+            const inputs = document.querySelectorAll('.newsletter-input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
+                
+                // Check if input has value on page load
+                if (input.value) {
+                    input.parentElement.classList.add('focused');
+                }
+            });
+            
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const sideMenu = document.getElementById('sideMenu');
+            const mainContainer = document.getElementById('mainContainer');
+            const menuLinks = document.querySelectorAll('.menu-link');
+            
+            menuToggle.addEventListener('click', function() {
+                sideMenu.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+                mainContainer.classList.toggle('menu-open');
+            });
+            
+            // Close menu when a link is clicked
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    sideMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    mainContainer.classList.remove('menu-open');
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideMenu = sideMenu.contains(event.target);
+                const isClickOnToggle = menuToggle.contains(event.target);
+                
+                if (!isClickInsideMenu && !isClickOnToggle && sideMenu.classList.contains('active')) {
+                    sideMenu.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                    mainContainer.classList.remove('menu-open');
+                }
+            });
+            
+            // Search functionality
+            const searchInput = document.querySelector('.menu-search-input');
+            const searchButton = document.querySelector('.menu-search-button');
+            
+            const performSearch = () => {
+                const searchTerm = searchInput.value.trim();
+                if (searchTerm) {
+                    alert(`Searching for: ${searchTerm}\n\nThis would normally search the MIRZA ecosystem for relevant content.`);
+                    searchInput.value = '';
+                }
+            };
+            
+            searchButton.addEventListener('click', performSearch);
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Set active navigation link
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.menu-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
