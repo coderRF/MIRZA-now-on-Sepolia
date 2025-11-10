@@ -9,709 +9,191 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="https://i.ibb.co/zH0cmJ4S/mirzalogo.png">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * {margin:0;padding:0;box-sizing:border-box;}
+        :root{--bg:#0a1128;--accent:#00f0f0;--text:#ffffff;--success:#00ff88;--error:#ff4444;--warning:#ffaa00;}
+        body{font-family:'Exo 2', sans-serif;background:linear-gradient(135deg,#0a1128,#192d55);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden;position:relative;}
 
-        :root {
-            --bg: #0a1128;
-            --accent: #00f0f0;
-            --text: #ffffff;
-        }
-
-        body {
-            font-family: 'Exo 2', sans-serif;
-            background: linear-gradient(135deg, #0a1128, #192d55);
-            color: var(--text);
-            min-height: 100vh;
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Sophisticated DeFi Effects */
-        .defi-effects {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        /* Blockchain Network Visualization */
-        .network-node {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: nodePulse 4s ease-in-out infinite;
-            box-shadow: 0 0 15px rgba(0, 240, 240, 0.8);
-        }
-
-        @keyframes nodePulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 0.6;
-            }
-            50% {
-                transform: scale(1.3);
-                opacity: 1;
-            }
-        }
-
-        .network-connection {
-            position: absolute;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            animation: connectionFlow 6s linear infinite;
-            filter: blur(0.5px);
-        }
-
-        @keyframes connectionFlow {
-            0% {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-
-        /* Financial Data Streams */
-        .data-stream {
-            position: absolute;
-            color: rgba(0, 240, 240, 0.4);
-            font-family: 'Orbitron', monospace;
-            font-size: 12px;
-            animation: streamFlow linear infinite;
-            text-shadow: 0 0 5px rgba(0, 240, 240, 0.6);
-            white-space: nowrap;
-        }
-
-        @keyframes streamFlow {
-            0% {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-
-        /* Trading Charts Visualization */
-        .trading-chart {
-            position: absolute;
-            width: 200px;
-            height: 80px;
-            border: 1px solid rgba(0, 240, 240, 0.2);
-            border-radius: 8px;
-            overflow: hidden;
-            animation: chartFloat 20s linear infinite;
-        }
-
-        .chart-line {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            animation: chartAnimation 3s ease-in-out infinite;
-        }
-
-        @keyframes chartFloat {
-            0% {
-                transform: translateX(-200px) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.2;
-            }
-            100% {
-                transform: translateX(100vw) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        @keyframes chartAnimation {
-            0%, 100% {
-                transform: scaleX(0.8);
-                opacity: 0.5;
-            }
-            50% {
-                transform: scaleX(1.2);
-                opacity: 1;
-            }
-        }
-
-        /* Liquidity Flow */
-        .liquidity-flow {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(0, 240, 240, 0.6);
-            border-radius: 50%;
-            animation: liquidityMove 8s linear infinite;
-            box-shadow: 0 0 10px rgba(0, 240, 240, 0.5);
-        }
-
-        @keyframes liquidityMove {
-            0% {
-                transform: translate(0, 0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translate(100px, -100px);
-                opacity: 0;
-            }
-        }
-
-        /* Yield Farming Particles */
-        .yield-particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: radial-gradient(circle, #00f0f0, #0080ff);
-            border-radius: 50%;
-            animation: yieldOrbit 15s linear infinite;
-            box-shadow: 0 0 15px rgba(0, 240, 240, 0.7);
-        }
-
-        @keyframes yieldOrbit {
-            0% {
-                transform: rotate(0deg) translateX(150px) rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg) translateX(150px) rotate(-360deg);
-            }
-        }
-
-        /* Staking Rings */
-        .staking-ring {
-            position: absolute;
-            border: 1px solid rgba(0, 240, 240, 0.15);
-            border-radius: 50%;
-            animation: ringRotate 25s linear infinite;
-        }
-
-        @keyframes ringRotate {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Price Movement Indicators */
-        .price-indicator {
-            position: absolute;
-            font-family: 'Orbitron', monospace;
-            font-size: 11px;
-            color: #4ecdc4;
-            animation: priceChange 4s ease-in-out infinite;
-            text-shadow: 0 0 8px currentColor;
-        }
-
-        .price-indicator.down {
-            color: #ff6b6b;
-        }
-
-        @keyframes priceChange {
-            0%, 100% {
-                transform: translateY(0);
-                opacity: 0.7;
-            }
-            50% {
-                transform: translateY(-10px);
-                opacity: 1;
-            }
-        }
-
-        /* Smart Contract Waves */
-        .contract-wave {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            border: 1px solid rgba(0, 240, 240, 0.2);
-            border-radius: 50%;
-            animation: waveExpand 6s ease-out infinite;
-        }
-
-        @keyframes waveExpand {
-            0% {
-                transform: scale(0.1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
-
-        /* Token Flow Visualization */
-        .token-flow {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: radial-gradient(circle, #00f0f0, #0080ff);
-            border-radius: 50%;
-            animation: tokenFlow 12s linear infinite;
-            box-shadow: 0 0 12px rgba(0, 240, 240, 0.6);
-        }
-
-        @keyframes tokenFlow {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translate(200px, -150px) scale(0.5);
-                opacity: 0;
-            }
-        }
-
-        /* Side Menu Bar */
-        .side-menu-container {
-            position: fixed;
-            top: 0;
-            left: -300px;
-            width: 280px;
-            height: 100vh;
-            background: rgba(10, 17, 40, 0.98);
+        /* Send Token Box */
+        .send-token-box {
+            background: linear-gradient(135deg, rgba(25,45,85,0.95), rgba(10,17,40,0.95));
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(0, 240, 240, 0.4);
             backdrop-filter: blur(10px);
-            border-right: 2px solid rgba(0, 240, 240, 0.5);
-            z-index: 1000;
-            transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
-            overflow-y: auto;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
         }
 
-        .side-menu-container.active {
-            left: 0;
+        .send-token-box.connected {
+            animation: pulse-glow 2s ease-in-out;
         }
 
-        .menu-header {
-            padding: 2rem 1.5rem 1.5rem;
-            border-bottom: 1px solid rgba(0, 240, 240, 0.3);
-            text-align: center;
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 30px rgba(0, 240, 240, 0.4); }
+            50% { box-shadow: 0 0 50px rgba(0, 240, 240, 0.8); }
+            100% { box-shadow: 0 0 30px rgba(0, 240, 240, 0.4); }
         }
 
-        .menu-logo {
+        .send-token-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 12px;
-            text-decoration: none;
-            margin-bottom: 1rem;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 240, 240, 0.3);
         }
 
-        .menu-logo-img {
+        .send-token-icon {
             width: 50px;
             height: 50px;
-            border-radius: 50%;
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 15px rgba(0, 240, 240, 0.5);
-            overflow: hidden;
-            animation: logoGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes logoGlow {
-            0%, 100% {
-                box-shadow: 0 0 15px rgba(0, 240, 240, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 25px rgba(0, 240, 240, 0.8), 0 0 35px rgba(0, 240, 240, 0.6);
-            }
-        }
-
-        .menu-logo-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .menu-brand {
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            color: var(--accent);
-            font-size: 1.5rem;
-            text-shadow: 0 0 10px rgba(0, 240, 240, 0.5);
-        }
-
-        .menu-nav {
-            list-style: none;
-            padding: 1.5rem 0;
-        }
-
-        .menu-link {
-            display: block;
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 1rem 1.5rem;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            position: relative;
-            border-bottom: 1px solid rgba(0, 240, 240, 0.1);
-        }
-
-        .menu-link:before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 0;
-            background: rgba(0, 240, 240, 0.1);
-            transition: width 0.3s ease;
-        }
-
-        .menu-link:hover:before {
-            width: 100%;
-        }
-
-        .menu-link:hover {
-            color: var(--accent);
-            padding-left: 2rem;
-        }
-
-        .menu-link.active {
-            color: var(--accent);
-            background: rgba(0, 240, 240, 0.15);
-            border-left: 4px solid var(--accent);
-        }
-
-        .menu-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 45px;
-            height: 45px;
-            background: rgba(10, 17, 40, 0.9);
-            border: 2px solid var(--accent);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
-            z-index: 999;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(0, 240, 240, 0.3);
-        }
-
-        .menu-toggle:hover {
-            background: rgba(0, 240, 240, 0.1);
-            transform: scale(1.05);
-        }
-
-        .menu-toggle span {
-            display: block;
-            height: 3px;
-            width: 25px;
-            background-color: var(--accent);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-        }
-
-        /* Smart Slide Bar */
-        .slide-bar {
-            background: linear-gradient(90deg, rgba(0, 240, 240, 0.1), rgba(0, 240, 240, 0.2), rgba(0, 240, 240, 0.1));
-            padding: 0.8rem 0;
-            border-bottom: 1px solid rgba(0, 240, 240, 0.3);
-            overflow: hidden;
-            position: relative;
-            margin-top: 0;
-        }
-
-        .slide-content {
-            display: flex;
-            animation: slide 25s linear infinite;
-            white-space: nowrap;
-        }
-
-        .slide-item {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 0 2rem;
-            color: var(--accent);
-            font-weight: 700;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-        }
-
-        .slide-badge {
             background: rgba(0, 240, 240, 0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            border: 1px solid var(--accent);
-            font-size: 0.8rem;
-            animation: badgePulse 2s ease-in-out infinite;
-        }
-
-        @keyframes badgePulse {
-            0%, 100% {
-                box-shadow: 0 0 5px rgba(0, 240, 240, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 15px rgba(0, 240, 240, 0.6);
-            }
-        }
-
-        @keyframes slide {
-            0% {
-                transform: translateX(100%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
-        }
-
-        .slide-bar:hover .slide-content {
-            animation-play-state: paused;
-        }
-
-        /* DeFi Page Content */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
-            transition: transform 0.4s ease;
-        }
-        
-        .container.menu-open {
-            transform: translateX(280px);
-        }
-        
-        .header {
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 3rem;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid #00f0f0;
-            box-shadow: 0 0 30px rgba(0, 240, 240, 0.7);
-            animation: logoFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes logoFloat {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-        
-        .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .title {
-            font-family: 'Orbitron', monospace;
-            font-size: 3rem;
-            font-weight: 900;
-            color: #00f0f0;
-            text-shadow: 0 0 20px rgba(0, 240, 240, 0.8);
-            letter-spacing: 2px;
-            text-align: center;
-        }
-
-        .defi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .defi-card {
-            background: linear-gradient(135deg, rgba(25, 45, 85, 0.9), rgba(10, 17, 40, 0.9));
             border: 2px solid var(--accent);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            animation: cardSlideIn 0.8s ease-out;
         }
 
-        @keyframes cardSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .send-token-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent);
         }
 
-        .defi-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 240, 240, 0.3);
-        }
-
-        .defi-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent), #0080ff);
-        }
-
-        .defi-logo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 20px rgba(0, 240, 240, 0.5);
-            margin: 0 auto 1.5rem auto;
-            animation: logoPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes logoPulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 20px rgba(0, 240, 240, 0.5);
-            }
-            50% {
-                transform: scale(1.1);
-                box-shadow: 0 0 25px rgba(0, 240, 240, 0.8);
-            }
-        }
-
-        .defi-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .defi-title {
+        .send-token-title {
             font-family: 'Orbitron', monospace;
             color: var(--accent);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
             font-weight: 700;
         }
 
-        .defi-features {
-            list-style: none;
-            margin: 1.5rem 0;
-        }
-
-        .defi-features li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(0, 240, 240, 0.2);
+        .wallet-status {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        .defi-features li:before {
-            content: '✓';
-            color: var(--accent);
-            font-weight: bold;
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--error);
+            animation: pulse 2s infinite;
         }
 
-        .stats-grid {
+        .status-indicator.connected {
+            background: var(--success);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .status-text {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
+        .wallet-summary {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
-        .stat-card {
+        .balance-item {
             background: rgba(0, 240, 240, 0.1);
-            border: 1px solid var(--accent);
-            border-radius: 15px;
-            padding: 1.5rem;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 240, 240, 0.3);
             text-align: center;
-            transition: all 0.3s ease;
         }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            background: rgba(0, 240, 240, 0.15);
-            box-shadow: 0 10px 25px rgba(0, 240, 240, 0.3);
-        }
-
-        .stat-value {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            color: var(--accent);
-            font-weight: 700;
+        .balance-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
             margin-bottom: 0.5rem;
         }
 
-        .stat-label {
-            color: var(--text);
-            opacity: 0.8;
+        .balance-value {
+            font-family: 'Orbitron', monospace;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .send-token-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--accent);
             font-size: 0.9rem;
         }
 
-        .mint-button {
+        .form-input {
+            background: rgba(10, 17, 40, 0.8);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 240, 240, 0.5);
+        }
+
+        .input-with-button {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .input-with-button .form-input {
+            flex: 1;
+        }
+
+        .max-button {
+            background: rgba(0, 240, 240, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .max-button:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .wallet-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .action-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -719,265 +201,280 @@
             color: #0a1128;
             font-family: 'Orbitron', monospace;
             font-weight: 700;
-            font-size: 1.1rem;
-            padding: 1.2rem 2.5rem;
+            font-size: 1rem;
+            padding: 1rem 2rem;
             border-radius: 50px;
             text-decoration: none;
-            margin: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 240, 240, 0.5);
-            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            animation: buttonGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes buttonGlow {
-            0%, 100% {
-                box-shadow: 0 10px 30px rgba(0, 240, 240, 0.5);
-            }
-            50% {
-                box-shadow: 0 15px 40px rgba(0, 240, 240, 0.7), 0 0 60px rgba(0, 240, 240, 0.4);
-            }
-        }
-        
-        .mint-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 240, 240, 0.7);
-        }
-
-        /* Footer */
-        .main-footer {
-            background: rgba(10, 17, 40, 0.95);
-            border-top: 2px solid rgba(0, 240, 240, 0.5);
-            padding: 3rem 0;
-            margin-top: 4rem;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--accent);
-            text-decoration: none;
-            padding: 0.8rem 1.5rem;
-            border: 2px solid var(--accent);
-            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 240, 240, 0.5);
             transition: all 0.3s ease;
-            font-weight: 600;
+            flex: 1;
         }
 
-        .social-link:hover {
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 240, 240, 0.7);
+        }
+
+        .action-button:disabled {
+            background: #555;
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .action-button.secondary {
+            background: rgba(0, 240, 240, 0.1);
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .action-button.secondary:hover {
             background: var(--accent);
             color: var(--bg);
+        }
+
+        .disconnect-button {
+            background: rgba(255, 68, 68, 0.2);
+            color: var(--error);
+            border: 2px solid var(--error);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .disconnect-button:hover {
+            background: var(--error);
+            color: var(--text);
             transform: translateY(-3px);
         }
 
-        .social-icon {
+        /* Side Menu Bar */
+        .side-menu-container{position:fixed;top:0;left:-300px;width:280px;height:100vh;background:rgba(10,17,40,0.98);backdrop-filter:blur(10px);border-right:2px solid rgba(0,240,240,0.5);z-index:1000;transition:left 0.4s ease;box-shadow:5px 0 30px rgba(0,0,0,0.5);overflow-y:auto;}
+        .side-menu-container.active{left:0;}
+        .menu-header{padding:2rem 1.5rem 1.5rem;border-bottom:1px solid rgba(0,240,240,0.3);text-align:center;}
+        .menu-logo{display:flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;margin-bottom:1rem;}
+        .menu-logo-img{width:50px;height:50px;border-radius:50%;border:2px solid var(--accent);box-shadow:0 0 15px rgba(0,240,240,0.5);overflow:hidden;}
+        .menu-logo-img img{width:100%;height:100%;object-fit:cover;}
+        .menu-brand{font-family:'Orbitron', monospace;font-weight:900;color:var(--accent);font-size:1.5rem;text-shadow:0 0 10px rgba(0,240,240,0.5);}
+        .menu-nav{list-style:none;padding:1.5rem 0;}
+        .menu-link{display:block;color:var(--text);text-decoration:none;font-weight:600;padding:1rem 1.5rem;transition:all 0.3s ease;font-size:1rem;position:relative;border-bottom:1px solid rgba(0,240,240,0.1);}
+        .menu-link:hover{color:var(--accent);padding-left:2rem;}
+        .menu-link.active{color:var(--accent);background:rgba(0,240,240,0.15);border-left:4px solid var(--accent);}
+        .menu-toggle{position:fixed;top:20px;left:20px;width:45px;height:45px;background:rgba(10,17,40,0.9);border:2px solid var(--accent);border-radius:8px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;cursor:pointer;z-index:999;transition:all 0.3s ease;box-shadow:0 0 15px rgba(0,240,240,0.3);}
+        .menu-toggle:hover{background:rgba(0,240,240,0.1);}
+        .menu-toggle span{display:block;height:3px;width:25px;background-color:var(--accent);border-radius:3px;transition:all 0.3s ease;}
+        .menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(6px,6px);}
+        .menu-toggle.active span:nth-child(2){opacity:0;}
+        .menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px);}
+
+        /* DeFi Page Content */
+        .container{max-width:1200px;margin:0 auto;padding:2rem;position:relative;z-index:2;transition:transform 0.4s ease;}
+        .container.menu-open{transform:translateX(280px);}
+        .header{display:flex;align-items:center;justify-content:center;margin-bottom:3rem;gap:2rem;flex-wrap:wrap;}
+        .logo{width:100px;height:100px;border-radius:50%;overflow:hidden;border:3px solid #00f0f0;box-shadow:0 0 30px rgba(0,240,240,0.7);}
+        .logo img{width:100%;height:100%;object-fit:cover;}
+        .title{font-family:'Orbitron', monospace;font-size:3rem;font-weight:900;color:#00f0f0;text-shadow:0 0 20px rgba(0,240,240,0.8);letter-spacing:2px;text-align:center;}
+        .defi-grid{display:flex;flex-direction:column;gap:2rem;margin:3rem 0;}
+        .defi-card{background:linear-gradient(135deg, rgba(25,45,85,0.9), rgba(10,17,40,0.9));border:2px solid var(--accent);border-radius:20px;padding:2.5rem;transition:all 0.3s ease;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;}
+        .defi-card:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,240,240,0.3);}
+        .defi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg, var(--accent), #0080ff);}
+        .defi-logo{width:80px;height:80px;border-radius:50%;overflow:hidden;border:2px solid var(--accent);box-shadow:0 0 20px rgba(0,240,240,0.5);margin:0 auto 1.5rem auto;}
+        .defi-logo img{width:100%;height:100%;object-fit:cover;}
+        .defi-title{font-family:'Orbitron', monospace;color:var(--accent);font-size:1.5rem;margin-bottom:1rem;font-weight:700;text-align:center;}
+        .defi-features{list-style:none;margin:1.5rem 0;text-align:center;}
+        .defi-features li{padding:0.5rem 0;border-bottom:1px solid rgba(0,240,240,0.2);display:flex;align-items:center;justify-content:center;gap:0.5rem;}
+        .defi-features li:before{content:'✓';color:var(--accent);font-weight:bold;}
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:1.5rem;margin:2rem 0;}
+        .stat-card{background:rgba(0,240,240,0.1);border:1px solid var(--accent);border-radius:15px;padding:1.5rem;text-align:center;transition:all 0.3s ease;}
+        .stat-card:hover{transform:translateY(-5px);background:rgba(0,240,240,0.15);box-shadow:0 10px 25px rgba(0,240,240,0.3);}
+        .stat-value{font-family:'Orbitron', monospace;font-size:2.5rem;color:var(--accent);font-weight:700;margin-bottom:0.5rem;}
+        .stat-label{color:var(--text);opacity:0.8;font-size:0.9rem;}
+        
+        /* Staking Form Styles */
+        .staking-form {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 240, 240, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 240, 240, 0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .input-label {
+            font-weight: 600;
+            color: var(--accent);
+            min-width: 120px;
+        }
+        
+        .amount-input {
+            flex: 1;
+            background: rgba(10, 17, 40, 0.8);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1rem;
+            max-width: 200px;
+        }
+        
+        .amount-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 240, 240, 0.5);
+        }
+        
+        .user-stats {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 240, 240, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 240, 240, 0.2);
+            width: 100%;
+        }
+        
+        .user-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 240, 240, 0.1);
+        }
+        
+        .user-stat:last-child {
+            border-bottom: none;
+        }
+        
+        .user-stat-label {
+            color: var(--text);
+            opacity: 0.8;
+        }
+        
+        .user-stat-value {
+            font-family: 'Orbitron', monospace;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 1001;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            max-width: 350px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: var(--success);
+            border-left: 5px solid #00cc66;
+        }
+        
+        .notification.error {
+            background: var(--error);
+            border-left: 5px solid #cc0000;
+        }
+        
+        .notification.warning {
+            background: var(--warning);
+            border-left: 5px solid #cc8800;
+            color: #333;
+        }
+        
+        .notification.info {
+            background: var(--accent);
+            border-left: 5px solid #0080ff;
+            color: #0a1128;
+        }
+        
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
             width: 20px;
             height: 20px;
-            filter: brightness(0) invert(1);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
-        .social-link:hover .social-icon {
-            filter: brightness(0) saturate(100%);
-        }
-
-        .ecosystem-text {
-            color: #00f0f0;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .mirza-text {
-            color: #00f0f0;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-family: 'Orbitron', monospace;
-        }
-
+        /* Footer */
+        .main-footer{background:rgba(10,17,40,0.95);border-top:2px solid rgba(0,240,240,0.5);padding:3rem 0;margin-top:4rem;text-align:center;position:relative;z-index:2;}
+        .footer-content{max-width:1200px;margin:0 auto;padding:0 2rem;}
+        .social-links{display:flex;justify-content:center;gap:1.5rem;margin:2rem 0;flex-wrap:wrap;}
+        .social-link{display:inline-flex;align-items:center;gap:0.5rem;color:var(--accent);text-decoration:none;padding:0.8rem 1.5rem;border:2px solid var(--accent);border-radius:10px;transition:all 0.3s ease;font-weight:600;}
+        .social-link:hover{background:var(--accent);color:var(--bg);transform:translateY(-3px);}
+        .social-icon{width:20px;height:20px;filter:brightness(0) invert(1);}
+        .social-link:hover .social-icon{filter:brightness(0) saturate(100%);}
+        .ecosystem-text{color:#00f0f0;font-weight:900;text-transform:uppercase;letter-spacing:2px;font-family:'Orbitron', monospace;}
+        .mirza-text{color:#00f0f0;font-weight:900;text-transform:uppercase;font-family:'Orbitron', monospace;}
+        
         /* Mobile Responsive */
-        @media (max-width: 1200px) {
-            .container {
-                padding: 2rem 1.5rem;
-            }
-            
-            .title {
-                font-size: 2.8rem;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .title {
-                font-size: 2.5rem;
-            }
-            
-            .defi-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
         @media (max-width: 768px) {
-            .side-menu-container {
-                width: 250px;
-                left: -250px;
+            .wallet-summary {
+                grid-template-columns: 1fr;
             }
             
-            .container.menu-open {
-                transform: translateX(250px);
-            }
-            
-            .header {
+            .input-row {
                 flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
+                align-items: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
             }
             
             .title {
                 font-size: 2.2rem;
-                letter-spacing: 2px;
-            }
-            
-            .defi-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .defi-card {
-                padding: 2rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .social-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-
-            .slide-item {
-                gap: 1rem;
-                padding: 0 1.5rem;
-                font-size: 0.8rem;
-            }
-
-            .slide-badge {
-                font-size: 0.7rem;
-                padding: 0.2rem 0.6rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .container {
-                padding: 1.5rem 1rem;
-            }
-            
-            .title {
-                font-size: 1.8rem;
-                letter-spacing: 1px;
-            }
-            
-            .logo {
-                width: 80px;
-                height: 80px;
             }
             
             .defi-card {
                 padding: 1.5rem;
             }
             
-            .defi-logo {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .defi-title {
-                font-size: 1.3rem;
-            }
-            
-            .stat-card {
-                padding: 1rem;
-            }
-            
-            .stat-value {
-                font-size: 2rem;
-            }
-            
-            .mint-button {
-                font-size: 1rem;
-                padding: 1rem 2rem;
-            }
-            
-            .menu-toggle {
-                width: 40px;
-                height: 40px;
-                top: 15px;
-                left: 15px;
-            }
-            
-            .menu-toggle span {
-                width: 20px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .title {
-                font-size: 1.6rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .defi-card {
-                padding: 1rem;
-            }
-            
-            .mint-button {
-                font-size: 0.9rem;
-                padding: 0.8rem 1.5rem;
-            }
-            
-            .slide-item {
-                font-size: 0.7rem;
-                gap: 0.8rem;
-                padding: 0 1rem;
-            }
-            
-            .slide-badge {
-                font-size: 0.6rem;
-                padding: 0.2rem 0.5rem;
+            .send-token-box {
+                padding: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Sophisticated DeFi Effects -->
-    <div class="defi-effects" id="defiEffects"></div>
-
     <!-- Side Menu Bar -->
     <div class="side-menu-container" id="sideMenu">
         <div class="menu-header">
@@ -1002,53 +499,6 @@
         <span></span>
         <span></span>
         <span></span>
-    </div>
-
-    <!-- Smart Slide Bar -->
-    <div class="slide-bar">
-        <div class="slide-content">
-            <div class="slide-item">
-                <span class="slide-badge">NEW</span>
-                <span>🚀 MIRZA DeFi PLATFORM LIVE - EARN UP TO 15% APY 🚀</span>
-            </div>
-            <div class="slide-item">
-                <span class="slide-badge">HOT</span>
-                <span>💰 $2.5M+ TOTAL VALUE LOCKED IN MIRZA DeFi 💰</span>
-            </div>
-            <div class="slide-item">
-                <span class="slide-badge">UPDATE</span>
-                <span>⭐ NEW LIQUIDITY POOLS LAUNCHING SOON ⭐</span>
-            </div>
-            <div class="slide-item">
-                <span class="slide-badge">ALERT</span>
-                <span>🎯 LIMITED TIME BONUS FOR EARLY STAKERS 🎯</span>
-            </div>
-            <div class="slide-item">
-                <span class="slide-badge">TRENDING</span>
-                <span>🔥 15K+ ACTIVE USERS ON MIRZA DeFi PLATFORM 🔥</span>
-            </div>
-            <!-- Duplicate for seamless loop -->
-            <div class="slide-item">
-                <span class="slide-badge">NEW</span>
-                <span>🚀 MIRZA DeFi PLATFORM LIVE - EARN UP TO 15% APY 🚀</span>
-            </div>
-            <div class="slide-item">
-                <span class="slide-badge">HOT</span>
-                <span>💰 $2.5M+ TOTAL VALUE LOCKED IN MIRZA DeFi 💰</span>
-            </div>
-            <div class="slide-item">
-                <span class="slide-badge">UPDATE</span>
-                <span>⭐ NEW LIQUIDITY POOLS LAUNCHING SOON ⭐</span>
-            </div>
-            <div class="slide-item">
-                <span class="slide-badge">ALERT</span>
-                <span>🎯 LIMITED TIME BONUS FOR EARLY STAKERS 🎯</span>
-            </div>
-            <div class="slide-item">
-                <span class="slide-badge">TRENDING</span>
-                <span>🔥 15K+ ACTIVE USERS ON MIRZA DeFi PLATFORM 🔥</span>
-            </div>
-        </div>
     </div>
 
     <!-- DeFi Page Content -->
@@ -1080,7 +530,60 @@
             </div>
         </div>
 
-        <!-- DeFi Products Grid -->
+        <!-- Send Token Box -->
+        <div class="send-token-box" id="sendTokenBox">
+            <div class="send-token-header">
+                <div class="send-token-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21,7.28V5c0-1.1-0.9-2-2-2H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2v-2.28 c0.59-0.35,1-0.98,1-1.72V9C22,8.26,21.59,7.63,21,7.28z M20,9v6h-7V9H20z M5,19V5h14v2h-6c-1.1,0-2,0.9-2,2v6c0,1.1,0.9,2,2,2h6v2H5z"/>
+                        <circle cx="16" cy="12" r="1.5"/>
+                    </svg>
+                </div>
+                <div class="send-token-title">SEND TOKEN</div>
+            </div>
+            
+            <div class="wallet-status">
+                <div class="status-indicator" id="statusIndicator"></div>
+                <div class="status-text" id="statusText">Not Connected</div>
+            </div>
+            
+            <div class="wallet-summary" id="walletSummary" style="display: none;">
+                <div class="balance-item">
+                    <div class="balance-label">ETH Balance</div>
+                    <div class="balance-value" id="ethBalance">0.0000 ETH</div>
+                </div>
+                <div class="balance-item">
+                    <div class="balance-label">MIRZA Balance</div>
+                    <div class="balance-value" id="mirzaBalance">0.0000 MIRZA</div>
+                </div>
+            </div>
+            
+            <div class="send-token-form" id="sendTokenForm" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label">Recipient Address</label>
+                    <input type="text" id="recipientAddress" class="form-input" placeholder="0x...">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Amount to Send</label>
+                    <div class="input-with-button">
+                        <input type="number" id="sendAmount" class="form-input" placeholder="0.0" min="0" step="0.1">
+                        <button class="max-button" id="maxButton">MAX</button>
+                    </div>
+                </div>
+                
+                <div class="wallet-actions">
+                    <button class="action-button" id="sendTokenButton">SEND TOKENS</button>
+                </div>
+            </div>
+            
+            <div class="wallet-actions">
+                <button class="action-button" id="connectWalletButton">CONNECT WALLET</button>
+                <button class="disconnect-button" id="disconnectWalletButton" style="display: none;">DISCONNECT</button>
+            </div>
+        </div>
+
+        <!-- DeFi Products Grid - Single Column Layout -->
         <div class="defi-grid">
             <!-- Staking Card -->
             <div class="defi-card">
@@ -1092,12 +595,39 @@
                 <ul class="defi-features">
                     <li>Flexible staking periods</li>
                     <li>Competitive APY returns</li>
-                    <li>Instant unstaking available</li>
+                    <li>Partial unstaking available</li>
                     <li>No lock-up periods</li>
                 </ul>
-                <a href="mint.html" class="mint-button">
-                    START STAKING
-                </a>
+                
+                <div class="staking-form">
+                    <div class="input-group">
+                        <div class="input-row">
+                            <label class="input-label">Amount to Stake:</label>
+                            <input type="number" id="stakeAmount" class="amount-input" placeholder="0.0" min="0" step="0.1">
+                            <button class="max-button" id="stakeMaxButton">MAX</button>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="action-button" id="stakeButton">STAKE TOKENS</button>
+                        <button class="action-button secondary" id="unstakeButton">UNSTAKE</button>
+                    </div>
+                    
+                    <div class="user-stats" id="stakingStats">
+                        <div class="user-stat">
+                            <span class="user-stat-label">Your Staked Balance:</span>
+                            <span class="user-stat-value" id="stakedBalance">0 MIRZA</span>
+                        </div>
+                        <div class="user-stat">
+                            <span class="user-stat-label">Pending Rewards:</span>
+                            <span class="user-stat-value" id="pendingRewards">0 MIRZA</span>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="action-button secondary" id="checkRewardButton">CHECK REWARDS</button>
+                    </div>
+                </div>
             </div>
 
             <!-- Liquidity Pool Card -->
@@ -1113,9 +643,7 @@
                     <li>Low impermanent loss</li>
                     <li>Real-time analytics</li>
                 </ul>
-                <a href="mint.html" class="mint-button">
-                    ADD LIQUIDITY
-                </a>
+                <button class="action-button" id="addLiquidityButton" style="margin-top: 1.5rem;">ADD LIQUIDITY</button>
             </div>
 
             <!-- Yield Farming Card -->
@@ -1131,165 +659,527 @@
                     <li>Risk management tools</li>
                     <li>Auto-compounding vaults</li>
                 </ul>
-                <a href="mint.html" class="mint-button">
-                    START FARMING
-                </a>
+                <button class="action-button" id="startFarmingButton" style="margin-top: 1.5rem;">START FARMING</button>
             </div>
         </div>
 
         <!-- CTA Section -->
-        <div style="text-align: center; margin: 4rem 0; padding: 3rem; background: linear-gradient(135deg, rgba(0, 240, 240, 0.1), rgba(0, 128, 255, 0.1)); border-radius: 20px; border: 2px solid var(--accent);">
-            <h2 style="font-family: 'Orbitron', monospace; color: var(--accent); font-size: 2.5rem; margin-bottom: 1rem;">READY TO START YOUR DEFI JOURNEY?</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Join thousands of users already earning with MIRZA DeFi ecosystem</p>
-            <a href="mint.html" class="mint-button" style="font-size: 1.3rem; padding: 1.5rem 4rem;">
-                GET STARTED WITH MIRZA
-            </a>
+        <div style="text-align:center;margin:4rem 0;">
+            <button class="action-button" id="mintSbtButton" style="font-size: 1.3rem; padding: 1.5rem 3rem;">MINT SBT NOW</button>
         </div>
     </div>
 
-    <!-- Main Footer -->
+    <!-- Footer -->
     <footer class="main-footer">
         <div class="footer-content">
+            <p class="mirza-text">© 2025 MIRZA ECOSYSTEM</p>
             <div class="social-links">
-                <a href="#" class="social-link">
-                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968823.png" alt="Twitter" class="social-icon">
-                    TWITTER
-                </a>
-                <a href="https://discord.gg/YmVjJxgq9g" target="_blank" class="social-link">
-                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord" class="social-icon">
-                    DISCORD
-                </a>
-                <a href="#" class="social-link">
-                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968846.png" alt="Github" class="social-icon">
-                    GITHUB
-                </a>
+                <a href="#" class="social-link"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384017.png" class="social-icon"> Twitter</a>
+                <a href="#" class="social-link"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384015.png" class="social-icon"> Telegram</a>
+                <a href="#" class="social-link"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384013.png" class="social-icon"> Discord</a>
             </div>
-            <p>© 2023 <span class="ecosystem-text">MIRZA ECOSYSTEM</span> ALL RIGHTS RESERVED</p>
-            <p>BUILT FOR THE <span class="mirza-text">MIRZA</span> COMMUNITY</p>
         </div>
     </footer>
 
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <!-- Web3 & Staking Script -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
     <script>
-        // Create sophisticated DeFi effects
-        function createDeFiEffects() {
-            const effectsContainer = document.getElementById('defiEffects');
+        // Contract Addresses and ABIs
+        const MIRZA_TOKEN = "0xEf6A9AA442191Ecdb7B1Dd26DBE727DBA6731E16";
+        const STAKING_CONTRACT = "0xde8EFE8f37086512378e207DB43C6C07377Ac323";
+
+        const ERC20_ABI = [
+            { "constant":true,"inputs":[{"name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"type":"function"},
+            { "constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"amount","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"type":"function"},
+            { "constant":false,"inputs":[{"name":"to","type":"address"},{"name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"type":"function"}
+        ];
+
+        const STAKING_ABI = [
+            { "inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},
+            { "inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"unstake","outputs":[],"stateMutability":"nonpayable","type":"function"},
+            { "inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"pendingReward","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+            { "inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakes","outputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"startTime","type":"uint256"},{"internalType":"uint256","name":"rewardDebt","type":"uint256"}],"stateMutability":"view","type":"function"}
+        ];
+
+        let web3, accounts, mirzaToken, stakingContract;
+        let userBalance = 0;
+        let stakedBalance = 0;
+        let pendingRewards = 0;
+
+        // DOM Elements for Send Token
+        const connectWalletButton = document.getElementById('connectWalletButton');
+        const disconnectWalletButton = document.getElementById('disconnectWalletButton');
+        const sendTokenBox = document.getElementById('sendTokenBox');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const statusText = document.getElementById('statusText');
+        const walletSummary = document.getElementById('walletSummary');
+        const sendTokenForm = document.getElementById('sendTokenForm');
+        const ethBalanceElement = document.getElementById('ethBalance');
+        const mirzaBalanceElement = document.getElementById('mirzaBalance');
+        const recipientAddress = document.getElementById('recipientAddress');
+        const sendAmount = document.getElementById('sendAmount');
+        const maxButton = document.getElementById('maxButton');
+        const sendTokenButton = document.getElementById('sendTokenButton');
+
+        // Initialize the application
+        document.addEventListener("DOMContentLoaded", () => {
+            // Initialize mobile menu
+            setupMobileMenu();
             
-            // Create Network Nodes
-            for (let i = 0; i < 25; i++) {
-                const node = document.createElement('div');
-                node.className = 'network-node';
-                node.style.left = `${Math.random() * 100}%`;
-                node.style.top = `${Math.random() * 100}%`;
-                node.style.animationDelay = `${Math.random() * 4}s`;
-                effectsContainer.appendChild(node);
+            // Check if Web3 is available
+            if (window.ethereum) {
+                initializeWeb3();
+            } else {
+                showNotification('Please install MetaMask to use this dApp', 'error');
+                connectWalletButton.textContent = 'INSTALL METAMASK';
+                connectWalletButton.onclick = () => window.open('https://metamask.io/download.html', '_blank');
             }
-            
-            // Create Network Connections
-            for (let i = 0; i < 15; i++) {
-                const connection = document.createElement('div');
-                connection.className = 'network-connection';
-                connection.style.top = `${Math.random() * 100}%`;
-                connection.style.width = `${Math.random() * 400 + 200}px`;
-                connection.style.animationDelay = `${Math.random() * 6}s`;
-                connection.style.animationDuration = `${Math.random() * 8 + 6}s`;
-                effectsContainer.appendChild(connection);
-            }
-            
-            // Create Data Streams
-            const streamChars = '💰💎📈📊💹MIRZAETHBTCUSDTSOLANADEFI';
-            for (let i = 0; i < 20; i++) {
-                const stream = document.createElement('div');
-                stream.className = 'data-stream';
-                stream.textContent = streamChars.charAt(Math.floor(Math.random() * streamChars.length));
-                stream.style.left = `${Math.random() * 100}%`;
-                stream.style.animationDuration = `${Math.random() * 5 + 4}s`;
-                stream.style.animationDelay = `${Math.random() * 3}s`;
-                effectsContainer.appendChild(stream);
-            }
-            
-            // Create Trading Charts
-            for (let i = 0; i < 8; i++) {
-                const chart = document.createElement('div');
-                chart.className = 'trading-chart';
-                chart.style.top = `${Math.random() * 100}%`;
-                chart.style.animationDelay = `${Math.random() * 10}s`;
-                chart.style.animationDuration = `${Math.random() * 15 + 20}s`;
+
+            // Set up event listeners
+            setupEventListeners();
+        });
+
+        // Initialize Web3
+        async function initializeWeb3() {
+            try {
+                // Create Web3 instance
+                web3 = new Web3(window.ethereum);
                 
-                const chartLine = document.createElement('div');
-                chartLine.className = 'chart-line';
-                chart.appendChild(chartLine);
+                // Initialize contracts
+                mirzaToken = new web3.eth.Contract(ERC20_ABI, MIRZA_TOKEN);
+                stakingContract = new web3.eth.Contract(STAKING_ABI, STAKING_CONTRACT);
                 
-                effectsContainer.appendChild(chart);
+                // Set up account change listener
+                window.ethereum.on('accountsChanged', function (newAccounts) {
+                    accounts = newAccounts;
+                    if (accounts.length > 0) {
+                        updateSendTokenDisplay();
+                        updateUserStats();
+                    } else {
+                        disconnectWallet();
+                    }
+                });
+                
+                // Set up chain change listener
+                window.ethereum.on('chainChanged', function (chainId) {
+                    // Check if it's Sepolia
+                    if (chainId !== '0xaa36a7') {
+                        showNotification('Please switch to Sepolia testnet', 'warning');
+                    } else {
+                        updateSendTokenDisplay();
+                        updateUserStats();
+                    }
+                });
+                
+                // Get accounts
+                accounts = await web3.eth.getAccounts();
+                if (accounts.length > 0) {
+                    updateSendTokenDisplay();
+                    updateUserStats();
+                }
+                
+            } catch (error) {
+                console.error('Error initializing Web3:', error);
+                showNotification('Error connecting to wallet: ' + error.message, 'error');
+            }
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Send Token buttons
+            connectWalletButton.addEventListener('click', connectWallet);
+            disconnectWalletButton.addEventListener('click', disconnectWallet);
+            maxButton.addEventListener('click', setMaxSendAmount);
+            sendTokenButton.addEventListener('click', sendTokens);
+            
+            // Staking buttons
+            document.getElementById('stakeButton').addEventListener('click', stakeTokens);
+            document.getElementById('unstakeButton').addEventListener('click', unstakeTokens);
+            document.getElementById('checkRewardButton').addEventListener('click', checkReward);
+            document.getElementById('stakeMaxButton').addEventListener('click', setMaxStakeAmount);
+            
+            // Other buttons
+            document.getElementById('addLiquidityButton').addEventListener('click', addLiquidity);
+            document.getElementById('startFarmingButton').addEventListener('click', startFarming);
+            document.getElementById('mintSbtButton').addEventListener('click', mintSbt);
+        }
+
+        // Update send token display
+        function updateSendTokenDisplay() {
+            if (accounts.length > 0) {
+                // Update status
+                statusIndicator.classList.add('connected');
+                statusText.textContent = 'Connected';
+                
+                // Show wallet details
+                walletSummary.style.display = 'grid';
+                sendTokenForm.style.display = 'flex';
+                
+                // Update buttons
+                connectWalletButton.style.display = 'none';
+                disconnectWalletButton.style.display = 'block';
+                
+                // Add connected class for animation
+                sendTokenBox.classList.add('connected');
+                
+                // Update balances
+                updateBalances();
+            } else {
+                // Reset to disconnected state
+                statusIndicator.classList.remove('connected');
+                statusText.textContent = 'Not Connected';
+                walletSummary.style.display = 'none';
+                sendTokenForm.style.display = 'none';
+                connectWalletButton.style.display = 'block';
+                disconnectWalletButton.style.display = 'none';
+                sendTokenBox.classList.remove('connected');
+            }
+        }
+
+        // Connect wallet
+        async function connectWallet() {
+            try {
+                if (!web3) {
+                    await initializeWeb3();
+                }
+                
+                // Request account access
+                accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                
+                // Check if we're on Sepolia
+                const chainId = await web3.eth.getChainId();
+                if (chainId !== 11155111) { // Sepolia chain ID
+                    try {
+                        // Try to switch to Sepolia
+                        await window.ethereum.request({
+                            method: 'wallet_switchEthereumChain',
+                            params: [{ chainId: '0xaa36a7' }], // Sepolia chain ID in hex
+                        });
+                    } catch (switchError) {
+                        // This error code indicates that the chain has not been added to MetaMask
+                        if (switchError.code === 4902) {
+                            try {
+                                await window.ethereum.request({
+                                    method: 'wallet_addEthereumChain',
+                                    params: [
+                                        {
+                                            chainId: '0xaa36a7',
+                                            chainName: 'Sepolia Testnet',
+                                            rpcUrls: ['https://sepolia.infura.io/v3/'],
+                                            nativeCurrency: {
+                                                name: 'Sepolia Ether',
+                                                symbol: 'ETH',
+                                                decimals: 18,
+                                            },
+                                            blockExplorerUrls: ['https://sepolia.etherscan.io'],
+                                        },
+                                    ],
+                                });
+                            } catch (addError) {
+                                console.error('Error adding Sepolia network:', addError);
+                                showNotification('Please manually switch to Sepolia testnet', 'warning');
+                            }
+                        } else {
+                            console.error('Error switching to Sepolia:', switchError);
+                            showNotification('Please manually switch to Sepolia testnet', 'warning');
+                        }
+                    }
+                }
+                
+                updateSendTokenDisplay();
+                updateUserStats();
+                showNotification('Wallet connected successfully!', 'success');
+                
+            } catch (error) {
+                console.error('Error connecting wallet:', error);
+                showNotification('Error connecting wallet: ' + error.message, 'error');
+            }
+        }
+
+        // Disconnect wallet
+        function disconnectWallet() {
+            accounts = [];
+            updateSendTokenDisplay();
+            showNotification('Wallet disconnected', 'info');
+        }
+
+        // Update user balances
+        async function updateBalances() {
+            if (accounts.length === 0) return;
+            
+            try {
+                // Get ETH balance
+                const ethBalance = await web3.eth.getBalance(accounts[0]);
+                const ethBalanceFormatted = web3.utils.fromWei(ethBalance, 'ether').substring(0, 6);
+                ethBalanceElement.textContent = `${ethBalanceFormatted} ETH`;
+                
+                // Get MIRZA token balance
+                const tokenBalance = await mirzaToken.methods.balanceOf(accounts[0]).call();
+                userBalance = web3.utils.fromWei(tokenBalance, 'ether');
+                mirzaBalanceElement.textContent = `${userBalance.substring(0, 8)} MIRZA`;
+                
+            } catch (error) {
+                console.error('Error updating balances:', error);
+            }
+        }
+
+        // Send tokens function
+        async function sendTokens() {
+            if (accounts.length === 0) {
+                showNotification('Please connect your wallet first', 'warning');
+                return;
             }
             
-            // Create Liquidity Flow
-            for (let i = 0; i < 30; i++) {
-                const flow = document.createElement('div');
-                flow.className = 'liquidity-flow';
-                flow.style.left = `${Math.random() * 100}%`;
-                flow.style.top = `${Math.random() * 100}%`;
-                flow.style.animationDelay = `${Math.random() * 8}s`;
-                flow.style.animationDuration = `${Math.random() * 6 + 8}s`;
-                effectsContainer.appendChild(flow);
+            const amount = sendAmount.value;
+            const recipient = recipientAddress.value;
+            
+            if (!amount || parseFloat(amount) <= 0) {
+                showNotification('Please enter a valid amount', 'warning');
+                return;
             }
             
-            // Create Yield Farming Particles
-            for (let i = 0; i < 12; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'yield-particle';
-                const centerX = Math.random() * 100;
-                const centerY = Math.random() * 100;
-                particle.style.left = `${centerX}%`;
-                particle.style.top = `${centerY}%`;
-                particle.style.animationDuration = `${Math.random() * 10 + 15}s`;
-                particle.style.animationDelay = `${Math.random() * 5}s`;
-                effectsContainer.appendChild(particle);
+            if (!recipient || !web3.utils.isAddress(recipient)) {
+                showNotification('Please enter a valid recipient address', 'warning');
+                return;
             }
             
-            // Create Staking Rings
-            for (let i = 0; i < 6; i++) {
-                const ring = document.createElement('div');
-                ring.className = 'staking-ring';
-                const size = Math.random() * 300 + 150;
-                ring.style.width = `${size}px`;
-                ring.style.height = `${size}px`;
-                ring.style.left = `${Math.random() * 100}%`;
-                ring.style.top = `${Math.random() * 100}%`;
-                ring.style.animationDuration = `${Math.random() * 20 + 25}s`;
-                effectsContainer.appendChild(ring);
+            if (parseFloat(amount) > parseFloat(userBalance)) {
+                showNotification('Insufficient balance', 'error');
+                return;
             }
             
-            // Create Price Indicators
-            for (let i = 0; i < 15; i++) {
-                const indicator = document.createElement('div');
-                indicator.className = Math.random() > 0.5 ? 'price-indicator' : 'price-indicator down';
-                indicator.textContent = Math.random() > 0.5 ? '▲' : '▼';
-                indicator.style.left = `${Math.random() * 100}%`;
-                indicator.style.top = `${Math.random() * 100}%`;
-                indicator.style.animationDelay = `${Math.random() * 4}s`;
-                effectsContainer.appendChild(indicator);
+            try {
+                sendTokenButton.disabled = true;
+                sendTokenButton.innerHTML = '<span class="spinner"></span> SENDING...';
+                
+                const amountWei = web3.utils.toWei(amount, 'ether');
+                
+                // Send tokens
+                await mirzaToken.methods.transfer(recipient, amountWei).send({ from: accounts[0] });
+                
+                showNotification(`Successfully sent ${amount} MIRZA tokens to ${recipient.substring(0, 8)}...`, 'success');
+                
+                // Clear form
+                sendAmount.value = '';
+                recipientAddress.value = '';
+                
+                // Update balances
+                await updateBalances();
+                
+            } catch (error) {
+                console.error('Error sending tokens:', error);
+                showNotification('Error sending tokens: ' + error.message, 'error');
+            } finally {
+                sendTokenButton.disabled = false;
+                sendTokenButton.textContent = 'SEND TOKENS';
+            }
+        }
+
+        // Set max send amount
+        function setMaxSendAmount() {
+            sendAmount.value = userBalance;
+        }
+
+        // Update user stats for staking
+        async function updateUserStats() {
+            if (accounts.length === 0) return;
+            
+            try {
+                // Update staking stats
+                const stakeInfo = await stakingContract.methods.stakes(accounts[0]).call();
+                stakedBalance = web3.utils.fromWei(stakeInfo.amount, 'ether');
+                document.getElementById('stakedBalance').textContent = `${stakedBalance.substring(0, 8)} MIRZA`;
+                
+                // Update pending rewards
+                const rewards = await stakingContract.methods.pendingReward(accounts[0]).call();
+                pendingRewards = web3.utils.fromWei(rewards, 'ether');
+                document.getElementById('pendingRewards').textContent = `${pendingRewards.substring(0, 8)} MIRZA`;
+                
+            } catch (error) {
+                console.error('Error updating user stats:', error);
+            }
+        }
+
+        // Stake tokens
+        async function stakeTokens() {
+            if (accounts.length === 0) {
+                showNotification('Please connect your wallet first', 'warning');
+                return;
             }
             
-            // Create Smart Contract Waves
-            for (let i = 0; i < 5; i++) {
-                const wave = document.createElement('div');
-                wave.className = 'contract-wave';
-                wave.style.left = `${Math.random() * 100}%`;
-                wave.style.top = `${Math.random() * 100}%`;
-                wave.style.animationDelay = `${Math.random() * 6}s`;
-                effectsContainer.appendChild(wave);
+            const amount = document.getElementById('stakeAmount').value;
+            if (!amount || parseFloat(amount) <= 0) {
+                showNotification('Please enter a valid amount', 'warning');
+                return;
             }
             
-            // Create Token Flow
-            for (let i = 0; i < 18; i++) {
-                const token = document.createElement('div');
-                token.className = 'token-flow';
-                token.style.left = `${Math.random() * 100}%`;
-                token.style.top = `${Math.random() * 100}%`;
-                token.style.animationDelay = `${Math.random() * 12}s`;
-                token.style.animationDuration = `${Math.random() * 8 + 12}s`;
-                effectsContainer.appendChild(token);
+            if (parseFloat(amount) > parseFloat(userBalance)) {
+                showNotification('Insufficient balance', 'error');
+                return;
             }
+            
+            try {
+                const stakeButton = document.getElementById('stakeButton');
+                stakeButton.disabled = true;
+                stakeButton.innerHTML = '<span class="spinner"></span> STAKING...';
+                
+                const amountWei = web3.utils.toWei(amount, 'ether');
+                
+                // First, approve the staking contract to spend tokens
+                await mirzaToken.methods.approve(STAKING_CONTRACT, amountWei).send({ from: accounts[0] });
+                
+                // Then, stake the tokens
+                await stakingContract.methods.stake(amountWei).send({ from: accounts[0] });
+                
+                showNotification(`Successfully staked ${amount} MIRZA tokens!`, 'success');
+                document.getElementById('stakeAmount').value = '';
+                
+                // Update balances and stats
+                await updateBalances();
+                await updateUserStats();
+                
+            } catch (error) {
+                console.error('Error staking tokens:', error);
+                showNotification('Error staking tokens: ' + error.message, 'error');
+            } finally {
+                document.getElementById('stakeButton').disabled = false;
+                document.getElementById('stakeButton').textContent = 'STAKE TOKENS';
+            }
+        }
+
+        // Unstake tokens - FIXED VERSION
+        async function unstakeTokens() {
+            if (accounts.length === 0) {
+                showNotification('Please connect your wallet first', 'warning');
+                return;
+            }
+            
+            // Get the amount user wants to unstake
+            const unstakeAmountInput = document.getElementById('stakeAmount');
+            const amount = unstakeAmountInput.value;
+            
+            if (!amount || parseFloat(amount) <= 0) {
+                showNotification('Please enter a valid amount to unstake', 'warning');
+                return;
+            }
+            
+            if (parseFloat(amount) > parseFloat(stakedBalance)) {
+                showNotification('Cannot unstake more than your staked balance', 'error');
+                return;
+            }
+            
+            try {
+                const unstakeButton = document.getElementById('unstakeButton');
+                unstakeButton.disabled = true;
+                unstakeButton.innerHTML = '<span class="spinner"></span> UNSTAKING...';
+                
+                // Convert to wei
+                const amountWei = web3.utils.toWei(amount, 'ether');
+                
+                // Call unstake with the specific amount
+                await stakingContract.methods.unstake(amountWei).send({ from: accounts[0] });
+                
+                showNotification(`Successfully unstaked ${amount} MIRZA tokens!`, 'success');
+                unstakeAmountInput.value = '';
+                
+                // Update balances and stats
+                await updateBalances();
+                await updateUserStats();
+                
+            } catch (error) {
+                console.error('Error unstaking tokens:', error);
+                showNotification('Error unstaking tokens: ' + error.message, 'error');
+            } finally {
+                document.getElementById('unstakeButton').disabled = false;
+                document.getElementById('unstakeButton').textContent = 'UNSTAKE';
+            }
+        }
+
+        // Check reward
+        async function checkReward() {
+            if (accounts.length === 0) {
+                showNotification('Please connect your wallet first', 'warning');
+                return;
+            }
+            
+            try {
+                const checkRewardButton = document.getElementById('checkRewardButton');
+                checkRewardButton.disabled = true;
+                checkRewardButton.innerHTML = '<span class="spinner"></span> CHECKING...';
+                
+                await updateUserStats();
+                showNotification(`Your pending rewards: ${pendingRewards.substring(0, 8)} MIRZA`, 'info');
+                
+            } catch (error) {
+                console.error('Error checking reward:', error);
+                showNotification('Error checking reward: ' + error.message, 'error');
+            } finally {
+                document.getElementById('checkRewardButton').disabled = false;
+                document.getElementById('checkRewardButton').textContent = 'CHECK REWARDS';
+            }
+        }
+
+        // Set max stake amount
+        function setMaxStakeAmount() {
+            document.getElementById('stakeAmount').value = userBalance;
+        }
+
+        // Add liquidity (mock function for demo)
+        async function addLiquidity() {
+            if (accounts.length === 0) {
+                showNotification('Please connect your wallet first', 'warning');
+                return;
+            }
+            
+            showNotification('Liquidity feature coming soon!', 'info');
+        }
+
+        // Start farming (mock function for demo)
+        async function startFarming() {
+            if (accounts.length === 0) {
+                showNotification('Please connect your wallet first', 'warning');
+                return;
+            }
+            
+            showNotification('Yield farming feature coming soon!', 'info');
+        }
+
+        // Mint SBT (mock function for demo)
+        async function mintSbt() {
+            if (accounts.length === 0) {
+                showNotification('Please connect your wallet first', 'warning');
+                return;
+            }
+            
+            window.location.href = 'mint.html';
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notificationContainer = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            notificationContainer.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Hide and remove after 5 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 5000);
         }
 
         // Mobile menu toggle
@@ -1326,24 +1216,6 @@
                 }
             });
         }
-
-        // Set active navigation link
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            const navLinks = document.querySelectorAll('.menu-link');
-            
-            navLinks.forEach(link => {
-                if (link.getAttribute('href') === currentPage) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-
-            // Initialize DeFi effects and mobile menu
-            createDeFiEffects();
-            setupMobileMenu();
-        });
     </script>
 </body>
 </html>
