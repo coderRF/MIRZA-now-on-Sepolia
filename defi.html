@@ -13,6 +13,32 @@
         :root{--bg:#0a1128;--accent:#00f0f0;--text:#ffffff;--success:#00ff88;--error:#ff4444;--warning:#ffaa00;}
         body{font-family:'Exo 2', sans-serif;background:linear-gradient(135deg,#0a1128,#192d55);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden;position:relative;}
 
+        /* Debug Section */
+        .debug-section {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid var(--error);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: none;
+        }
+        
+        .debug-section.active {
+            display: block;
+        }
+        
+        .debug-title {
+            color: var(--error);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .debug-info {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
         /* Send Token Box */
         .send-token-box {
             background: linear-gradient(135deg, rgba(25,45,85,0.95), rgba(10,17,40,0.95));
@@ -376,6 +402,14 @@
             font-weight: 600;
         }
 
+        /* Action Buttons Grid */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            width: 100%;
+        }
+
         /* Notifications */
         .notification {
             position: fixed;
@@ -530,6 +564,17 @@
             </div>
         </div>
 
+        <!-- Debug Section -->
+        <div class="debug-section" id="debugSection">
+            <div class="debug-title">Debug Information</div>
+            <div class="debug-info">
+                <div id="debugContent">No debug information available</div>
+                <button class="action-button secondary" onclick="debugUnstake()" style="margin-top: 0.5rem; padding: 0.5rem 1rem; font-size: 0.9rem;">
+                    DEBUG UNSTAKE
+                </button>
+            </div>
+        </div>
+
         <!-- Send Token Box -->
         <div class="send-token-box" id="sendTokenBox">
             <div class="send-token-header">
@@ -596,7 +641,7 @@
                     <li>Flexible staking periods</li>
                     <li>Competitive APY returns</li>
                     <li>Partial unstaking available</li>
-                    <li>No lock-up periods</li>
+                    <li>Rewards claimed when unstaking</li>
                 </ul>
                 
                 <div class="staking-form">
@@ -605,6 +650,11 @@
                             <label class="input-label">Amount to Stake:</label>
                             <input type="number" id="stakeAmount" class="amount-input" placeholder="0.0" min="0" step="0.1">
                             <button class="max-button" id="stakeMaxButton">MAX</button>
+                        </div>
+                        <div class="input-row">
+                            <label class="input-label">Amount to Unstake:</label>
+                            <input type="number" id="unstakeAmount" class="amount-input" placeholder="0.0" min="0" step="0.1">
+                            <button class="max-button" id="unstakeMaxButton">MAX</button>
                         </div>
                     </div>
                     
@@ -624,8 +674,9 @@
                         </div>
                     </div>
                     
-                    <div class="action-buttons">
-                        <button class="action-button secondary" id="checkRewardButton">CHECK REWARDS</button>
+                    <!-- Single button for checking rewards -->
+                    <div class="action-buttons" style="margin-top: 1rem;">
+                        <button class="action-button secondary" id="checkRewardButton" style="width: 100%;">CHECK REWARDS</button>
                     </div>
                 </div>
             </div>
@@ -701,7 +752,8 @@
             { "inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},
             { "inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"unstake","outputs":[],"stateMutability":"nonpayable","type":"function"},
             { "inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"pendingReward","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-            { "inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakes","outputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"startTime","type":"uint256"},{"internalType":"uint256","name":"rewardDebt","type":"uint256"}],"stateMutability":"view","type":"function"}
+            { "inputs":[{"internalType":"address","name":"","type":"address"}],"name":"stakes","outputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint256","name":"startTime","type":"uint256"},{"internalType":"uint256","name":"rewardDebt","type":"uint256"}],"stateMutability":"view","type":"function"},
+            { "inputs":[],"name":"stakingEnabled","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"}
         ];
 
         let web3, accounts, mirzaToken, stakingContract;
@@ -709,7 +761,7 @@
         let stakedBalance = 0;
         let pendingRewards = 0;
 
-        // DOM Elements for Send Token
+        // DOM Elements
         const connectWalletButton = document.getElementById('connectWalletButton');
         const disconnectWalletButton = document.getElementById('disconnectWalletButton');
         const sendTokenBox = document.getElementById('sendTokenBox');
@@ -723,13 +775,13 @@
         const sendAmount = document.getElementById('sendAmount');
         const maxButton = document.getElementById('maxButton');
         const sendTokenButton = document.getElementById('sendTokenButton');
+        const debugSection = document.getElementById('debugSection');
+        const debugContent = document.getElementById('debugContent');
 
         // Initialize the application
         document.addEventListener("DOMContentLoaded", () => {
-            // Initialize mobile menu
             setupMobileMenu();
             
-            // Check if Web3 is available
             if (window.ethereum) {
                 initializeWeb3();
             } else {
@@ -738,14 +790,12 @@
                 connectWalletButton.onclick = () => window.open('https://metamask.io/download.html', '_blank');
             }
 
-            // Set up event listeners
             setupEventListeners();
         });
 
         // Initialize Web3
         async function initializeWeb3() {
             try {
-                // Create Web3 instance
                 web3 = new Web3(window.ethereum);
                 
                 // Initialize contracts
@@ -765,7 +815,6 @@
                 
                 // Set up chain change listener
                 window.ethereum.on('chainChanged', function (chainId) {
-                    // Check if it's Sepolia
                     if (chainId !== '0xaa36a7') {
                         showNotification('Please switch to Sepolia testnet', 'warning');
                     } else {
@@ -789,19 +838,17 @@
 
         // Set up event listeners
         function setupEventListeners() {
-            // Send Token buttons
             connectWalletButton.addEventListener('click', connectWallet);
             disconnectWalletButton.addEventListener('click', disconnectWallet);
             maxButton.addEventListener('click', setMaxSendAmount);
             sendTokenButton.addEventListener('click', sendTokens);
             
-            // Staking buttons
             document.getElementById('stakeButton').addEventListener('click', stakeTokens);
             document.getElementById('unstakeButton').addEventListener('click', unstakeTokens);
             document.getElementById('checkRewardButton').addEventListener('click', checkReward);
             document.getElementById('stakeMaxButton').addEventListener('click', setMaxStakeAmount);
+            document.getElementById('unstakeMaxButton').addEventListener('click', setMaxUnstakeAmount);
             
-            // Other buttons
             document.getElementById('addLiquidityButton').addEventListener('click', addLiquidity);
             document.getElementById('startFarmingButton').addEventListener('click', startFarming);
             document.getElementById('mintSbtButton').addEventListener('click', mintSbt);
@@ -810,25 +857,15 @@
         // Update send token display
         function updateSendTokenDisplay() {
             if (accounts.length > 0) {
-                // Update status
                 statusIndicator.classList.add('connected');
                 statusText.textContent = 'Connected';
-                
-                // Show wallet details
                 walletSummary.style.display = 'grid';
                 sendTokenForm.style.display = 'flex';
-                
-                // Update buttons
                 connectWalletButton.style.display = 'none';
                 disconnectWalletButton.style.display = 'block';
-                
-                // Add connected class for animation
                 sendTokenBox.classList.add('connected');
-                
-                // Update balances
                 updateBalances();
             } else {
-                // Reset to disconnected state
                 statusIndicator.classList.remove('connected');
                 statusText.textContent = 'Not Connected';
                 walletSummary.style.display = 'none';
@@ -846,20 +883,16 @@
                     await initializeWeb3();
                 }
                 
-                // Request account access
                 accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 
-                // Check if we're on Sepolia
                 const chainId = await web3.eth.getChainId();
-                if (chainId !== 11155111) { // Sepolia chain ID
+                if (chainId !== 11155111) {
                     try {
-                        // Try to switch to Sepolia
                         await window.ethereum.request({
                             method: 'wallet_switchEthereumChain',
-                            params: [{ chainId: '0xaa36a7' }], // Sepolia chain ID in hex
+                            params: [{ chainId: '0xaa36a7' }],
                         });
                     } catch (switchError) {
-                        // This error code indicates that the chain has not been added to MetaMask
                         if (switchError.code === 4902) {
                             try {
                                 await window.ethereum.request({
@@ -882,9 +915,6 @@
                                 console.error('Error adding Sepolia network:', addError);
                                 showNotification('Please manually switch to Sepolia testnet', 'warning');
                             }
-                        } else {
-                            console.error('Error switching to Sepolia:', switchError);
-                            showNotification('Please manually switch to Sepolia testnet', 'warning');
                         }
                     }
                 }
@@ -911,12 +941,10 @@
             if (accounts.length === 0) return;
             
             try {
-                // Get ETH balance
                 const ethBalance = await web3.eth.getBalance(accounts[0]);
                 const ethBalanceFormatted = web3.utils.fromWei(ethBalance, 'ether').substring(0, 6);
                 ethBalanceElement.textContent = `${ethBalanceFormatted} ETH`;
                 
-                // Get MIRZA token balance
                 const tokenBalance = await mirzaToken.methods.balanceOf(accounts[0]).call();
                 userBalance = web3.utils.fromWei(tokenBalance, 'ether');
                 mirzaBalanceElement.textContent = `${userBalance.substring(0, 8)} MIRZA`;
@@ -956,17 +984,11 @@
                 sendTokenButton.innerHTML = '<span class="spinner"></span> SENDING...';
                 
                 const amountWei = web3.utils.toWei(amount, 'ether');
-                
-                // Send tokens
                 await mirzaToken.methods.transfer(recipient, amountWei).send({ from: accounts[0] });
                 
                 showNotification(`Successfully sent ${amount} MIRZA tokens to ${recipient.substring(0, 8)}...`, 'success');
-                
-                // Clear form
                 sendAmount.value = '';
                 recipientAddress.value = '';
-                
-                // Update balances
                 await updateBalances();
                 
             } catch (error) {
@@ -988,12 +1010,10 @@
             if (accounts.length === 0) return;
             
             try {
-                // Update staking stats
                 const stakeInfo = await stakingContract.methods.stakes(accounts[0]).call();
                 stakedBalance = web3.utils.fromWei(stakeInfo.amount, 'ether');
                 document.getElementById('stakedBalance').textContent = `${stakedBalance.substring(0, 8)} MIRZA`;
                 
-                // Update pending rewards
                 const rewards = await stakingContract.methods.pendingReward(accounts[0]).call();
                 pendingRewards = web3.utils.fromWei(rewards, 'ether');
                 document.getElementById('pendingRewards').textContent = `${pendingRewards.substring(0, 8)} MIRZA`;
@@ -1036,8 +1056,6 @@
                 
                 showNotification(`Successfully staked ${amount} MIRZA tokens!`, 'success');
                 document.getElementById('stakeAmount').value = '';
-                
-                // Update balances and stats
                 await updateBalances();
                 await updateUserStats();
                 
@@ -1050,15 +1068,14 @@
             }
         }
 
-        // Unstake tokens - FIXED VERSION
+        // Unstake tokens - IMPROVED VERSION
         async function unstakeTokens() {
             if (accounts.length === 0) {
                 showNotification('Please connect your wallet first', 'warning');
                 return;
             }
             
-            // Get the amount user wants to unstake
-            const unstakeAmountInput = document.getElementById('stakeAmount');
+            const unstakeAmountInput = document.getElementById('unstakeAmount');
             const amount = unstakeAmountInput.value;
             
             if (!amount || parseFloat(amount) <= 0) {
@@ -1076,25 +1093,120 @@
                 unstakeButton.disabled = true;
                 unstakeButton.innerHTML = '<span class="spinner"></span> UNSTAKING...';
                 
-                // Convert to wei
+                // Check if staking is enabled
+                const stakingEnabled = await stakingContract.methods.stakingEnabled().call();
+                if (!stakingEnabled) {
+                    showNotification('Staking is currently disabled', 'error');
+                    return;
+                }
+                
                 const amountWei = web3.utils.toWei(amount, 'ether');
                 
-                // Call unstake with the specific amount
-                await stakingContract.methods.unstake(amountWei).send({ from: accounts[0] });
+                console.log('Attempting to unstake:', amount, 'MIRZA');
+                console.log('Amount in wei:', amountWei);
+                console.log('From account:', accounts[0]);
                 
-                showNotification(`Successfully unstaked ${amount} MIRZA tokens!`, 'success');
+                // Call unstake with the specific amount
+                const receipt = await stakingContract.methods.unstake(amountWei).send({ 
+                    from: accounts[0],
+                    gas: 300000 // Increased gas limit
+                });
+                
+                console.log('Unstake transaction receipt:', receipt);
+                
+                showNotification(`Successfully unstaked ${amount} MIRZA tokens and claimed rewards!`, 'success');
                 unstakeAmountInput.value = '';
                 
-                // Update balances and stats
                 await updateBalances();
                 await updateUserStats();
                 
             } catch (error) {
                 console.error('Error unstaking tokens:', error);
-                showNotification('Error unstaking tokens: ' + error.message, 'error');
+                
+                // Show detailed error information
+                let errorMessage = 'Error unstaking tokens: ';
+                
+                if (error.message.includes('user rejected')) {
+                    errorMessage = 'Transaction was rejected by user';
+                } else if (error.message.includes('insufficient funds')) {
+                    errorMessage = 'Insufficient ETH for gas fees';
+                } else if (error.message.includes('Staking disabled')) {
+                    errorMessage = 'Staking is currently disabled';
+                } else if (error.message.includes('Invalid amount')) {
+                    errorMessage = 'Invalid unstake amount';
+                } else if (error.message.includes('exceeds staked')) {
+                    errorMessage = 'Cannot unstake more than staked balance';
+                } else {
+                    errorMessage += error.message;
+                }
+                
+                showNotification(errorMessage, 'error');
+                
+                // Show debug information
+                debugSection.classList.add('active');
+                debugContent.innerHTML = `
+                    <strong>Error Details:</strong><br>
+                    ${error.message}<br><br>
+                    <strong>Staked Balance:</strong> ${stakedBalance} MIRZA<br>
+                    <strong>Attempted to Unstake:</strong> ${amount} MIRZA<br>
+                    <strong>Account:</strong> ${accounts[0]}<br>
+                    <strong>Check browser console for more details</strong>
+                `;
             } finally {
                 document.getElementById('unstakeButton').disabled = false;
                 document.getElementById('unstakeButton').textContent = 'UNSTAKE';
+            }
+        }
+
+        // Debug function to check unstake issues
+        async function debugUnstake() {
+            if (accounts.length === 0) {
+                showNotification('Please connect your wallet first', 'warning');
+                return;
+            }
+            
+            try {
+                debugContent.innerHTML = 'Checking contract status...';
+                
+                // Check contract balance
+                const contractBalance = await mirzaToken.methods.balanceOf(STAKING_CONTRACT).call();
+                const contractBalanceFormatted = web3.utils.fromWei(contractBalance, 'ether');
+                
+                // Check staking status
+                const stakingEnabled = await stakingContract.methods.stakingEnabled().call();
+                
+                // Check user stake info
+                const stakeInfo = await stakingContract.methods.stakes(accounts[0]).call();
+                const userStaked = web3.utils.fromWei(stakeInfo.amount, 'ether');
+                const startTime = new Date(stakeInfo.startTime * 1000);
+                
+                debugContent.innerHTML = `
+                    <strong>Contract Status:</strong><br>
+                    - Staking Enabled: ${stakingEnabled}<br>
+                    - Contract MIRZA Balance: ${contractBalanceFormatted} MIRZA<br><br>
+                    
+                    <strong>Your Stake Info:</strong><br>
+                    - Staked Amount: ${userStaked} MIRZA<br>
+                    - Start Time: ${startTime.toLocaleString()}<br>
+                    - Raw Amount: ${stakeInfo.amount} wei<br><br>
+                    
+                    <strong>Account:</strong> ${accounts[0]}<br>
+                    <strong>Check browser console for complete debug info</strong>
+                `;
+                
+                console.log('=== DEBUG UNSTAKE INFO ===');
+                console.log('Contract Address:', STAKING_CONTRACT);
+                console.log('Staking Enabled:', stakingEnabled);
+                console.log('Contract Balance:', contractBalanceFormatted, 'MIRZA');
+                console.log('Your Staked Balance:', userStaked, 'MIRZA');
+                console.log('Stake Start Time:', startTime);
+                console.log('Raw Stake Amount:', stakeInfo.amount);
+                console.log('Your Account:', accounts[0]);
+                console.log('==========================');
+                
+            } catch (error) {
+                console.error('Debug error:', error);
+                debugContent.innerHTML = `Debug error: ${error.message}`;
             }
         }
 
@@ -1127,33 +1239,33 @@
             document.getElementById('stakeAmount').value = userBalance;
         }
 
-        // Add liquidity (mock function for demo)
+        // Set max unstake amount
+        function setMaxUnstakeAmount() {
+            document.getElementById('unstakeAmount').value = stakedBalance;
+        }
+
+        // Other functions
         async function addLiquidity() {
             if (accounts.length === 0) {
                 showNotification('Please connect your wallet first', 'warning');
                 return;
             }
-            
             showNotification('Liquidity feature coming soon!', 'info');
         }
 
-        // Start farming (mock function for demo)
         async function startFarming() {
             if (accounts.length === 0) {
                 showNotification('Please connect your wallet first', 'warning');
                 return;
             }
-            
             showNotification('Yield farming feature coming soon!', 'info');
         }
 
-        // Mint SBT (mock function for demo)
         async function mintSbt() {
             if (accounts.length === 0) {
                 showNotification('Please connect your wallet first', 'warning');
                 return;
             }
-            
             window.location.href = 'mint.html';
         }
 
@@ -1166,12 +1278,10 @@
             
             notificationContainer.appendChild(notification);
             
-            // Show notification
             setTimeout(() => {
                 notification.classList.add('show');
             }, 100);
             
-            // Hide and remove after 5 seconds
             setTimeout(() => {
                 notification.classList.remove('show');
                 setTimeout(() => {
@@ -1195,7 +1305,6 @@
                 mainContainer.classList.toggle('menu-open');
             });
             
-            // Close menu when a link is clicked
             menuLinks.forEach(link => {
                 link.addEventListener('click', function() {
                     sideMenu.classList.remove('active');
@@ -1204,7 +1313,6 @@
                 });
             });
             
-            // Close menu when clicking outside
             document.addEventListener('click', function(event) {
                 const isClickInsideMenu = sideMenu.contains(event.target);
                 const isClickOnToggle = menuToggle.contains(event.target);
