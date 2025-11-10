@@ -13,32 +13,6 @@
         :root{--bg:#0a1128;--accent:#00f0f0;--text:#ffffff;--success:#00ff88;--error:#ff4444;--warning:#ffaa00;}
         body{font-family:'Exo 2', sans-serif;background:linear-gradient(135deg,#0a1128,#192d55);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden;position:relative;}
 
-        /* Debug Section */
-        .debug-section {
-            background: rgba(255, 68, 68, 0.1);
-            border: 1px solid var(--error);
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
-            display: none;
-        }
-        
-        .debug-section.active {
-            display: block;
-        }
-        
-        .debug-title {
-            color: var(--error);
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-        
-        .debug-info {
-            font-size: 0.9rem;
-            color: var(--text);
-            opacity: 0.8;
-        }
-
         /* Send Token Box */
         .send-token-box {
             background: linear-gradient(135deg, rgba(25,45,85,0.95), rgba(10,17,40,0.95));
@@ -99,6 +73,18 @@
             align-items: center;
             gap: 0.5rem;
             margin-bottom: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .wallet-status:hover {
+            background: rgba(0, 240, 240, 0.1);
+        }
+
+        .wallet-status.connected {
+            cursor: pointer;
         }
 
         .status-indicator {
@@ -123,6 +109,24 @@
             font-size: 0.9rem;
             color: var(--text);
             opacity: 0.8;
+            flex: 1;
+        }
+
+        .disconnect-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .wallet-status:hover .disconnect-icon {
+            opacity: 0.7;
+        }
+
+        .wallet-status:hover .disconnect-icon:hover {
+            opacity: 1;
+            transform: scale(1.1);
         }
 
         .wallet-summary {
@@ -260,25 +264,6 @@
         .action-button.secondary:hover {
             background: var(--accent);
             color: var(--bg);
-        }
-
-        .disconnect-button {
-            background: rgba(255, 68, 68, 0.2);
-            color: var(--error);
-            border: 2px solid var(--error);
-            border-radius: 50px;
-            padding: 1rem 2rem;
-            font-family: 'Exo 2', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .disconnect-button:hover {
-            background: var(--error);
-            color: var(--text);
-            transform: translateY(-3px);
         }
 
         /* Side Menu Bar */
@@ -564,17 +549,6 @@
             </div>
         </div>
 
-        <!-- Debug Section -->
-        <div class="debug-section" id="debugSection">
-            <div class="debug-title">Debug Information</div>
-            <div class="debug-info">
-                <div id="debugContent">No debug information available</div>
-                <button class="action-button secondary" onclick="debugUnstake()" style="margin-top: 0.5rem; padding: 0.5rem 1rem; font-size: 0.9rem;">
-                    DEBUG UNSTAKE
-                </button>
-            </div>
-        </div>
-
         <!-- Send Token Box -->
         <div class="send-token-box" id="sendTokenBox">
             <div class="send-token-header">
@@ -587,9 +561,12 @@
                 <div class="send-token-title">SEND TOKEN</div>
             </div>
             
-            <div class="wallet-status">
+            <div class="wallet-status" id="walletStatus">
                 <div class="status-indicator" id="statusIndicator"></div>
                 <div class="status-text" id="statusText">Not Connected</div>
+                <svg class="disconnect-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
             </div>
             
             <div class="wallet-summary" id="walletSummary" style="display: none;">
@@ -624,7 +601,6 @@
             
             <div class="wallet-actions">
                 <button class="action-button" id="connectWalletButton">CONNECT WALLET</button>
-                <button class="disconnect-button" id="disconnectWalletButton" style="display: none;">DISCONNECT</button>
             </div>
         </div>
 
@@ -763,8 +739,7 @@
 
         // DOM Elements
         const connectWalletButton = document.getElementById('connectWalletButton');
-        const disconnectWalletButton = document.getElementById('disconnectWalletButton');
-        const sendTokenBox = document.getElementById('sendTokenBox');
+        const walletStatus = document.getElementById('walletStatus');
         const statusIndicator = document.getElementById('statusIndicator');
         const statusText = document.getElementById('statusText');
         const walletSummary = document.getElementById('walletSummary');
@@ -775,8 +750,6 @@
         const sendAmount = document.getElementById('sendAmount');
         const maxButton = document.getElementById('maxButton');
         const sendTokenButton = document.getElementById('sendTokenButton');
-        const debugSection = document.getElementById('debugSection');
-        const debugContent = document.getElementById('debugContent');
 
         // Initialize the application
         document.addEventListener("DOMContentLoaded", () => {
@@ -839,7 +812,14 @@
         // Set up event listeners
         function setupEventListeners() {
             connectWalletButton.addEventListener('click', connectWallet);
-            disconnectWalletButton.addEventListener('click', disconnectWallet);
+            
+            // Add click listener to wallet status for disconnect
+            walletStatus.addEventListener('click', function() {
+                if (accounts.length > 0) {
+                    disconnectWallet();
+                }
+            });
+            
             maxButton.addEventListener('click', setMaxSendAmount);
             sendTokenButton.addEventListener('click', sendTokens);
             
@@ -857,21 +837,31 @@
         // Update send token display
         function updateSendTokenDisplay() {
             if (accounts.length > 0) {
+                // Update status
                 statusIndicator.classList.add('connected');
-                statusText.textContent = 'Connected';
+                statusText.textContent = `Connected: ${accounts[0].substring(0, 6)}...${accounts[0].substring(38)}`;
+                walletStatus.classList.add('connected');
+                
+                // Show wallet details
                 walletSummary.style.display = 'grid';
                 sendTokenForm.style.display = 'flex';
+                
+                // Update buttons
                 connectWalletButton.style.display = 'none';
-                disconnectWalletButton.style.display = 'block';
+                
+                // Add connected class for animation
                 sendTokenBox.classList.add('connected');
+                
+                // Update balances
                 updateBalances();
             } else {
+                // Reset to disconnected state
                 statusIndicator.classList.remove('connected');
                 statusText.textContent = 'Not Connected';
+                walletStatus.classList.remove('connected');
                 walletSummary.style.display = 'none';
                 sendTokenForm.style.display = 'none';
                 connectWalletButton.style.display = 'block';
-                disconnectWalletButton.style.display = 'none';
                 sendTokenBox.classList.remove('connected');
             }
         }
@@ -1068,7 +1058,7 @@
             }
         }
 
-        // Unstake tokens - IMPROVED VERSION
+        // Unstake tokens
         async function unstakeTokens() {
             if (accounts.length === 0) {
                 showNotification('Please connect your wallet first', 'warning');
@@ -1102,17 +1092,11 @@
                 
                 const amountWei = web3.utils.toWei(amount, 'ether');
                 
-                console.log('Attempting to unstake:', amount, 'MIRZA');
-                console.log('Amount in wei:', amountWei);
-                console.log('From account:', accounts[0]);
-                
                 // Call unstake with the specific amount
                 const receipt = await stakingContract.methods.unstake(amountWei).send({ 
                     from: accounts[0],
-                    gas: 300000 // Increased gas limit
+                    gas: 300000
                 });
-                
-                console.log('Unstake transaction receipt:', receipt);
                 
                 showNotification(`Successfully unstaked ${amount} MIRZA tokens and claimed rewards!`, 'success');
                 unstakeAmountInput.value = '';
@@ -1123,7 +1107,6 @@
             } catch (error) {
                 console.error('Error unstaking tokens:', error);
                 
-                // Show detailed error information
                 let errorMessage = 'Error unstaking tokens: ';
                 
                 if (error.message.includes('user rejected')) {
@@ -1141,72 +1124,9 @@
                 }
                 
                 showNotification(errorMessage, 'error');
-                
-                // Show debug information
-                debugSection.classList.add('active');
-                debugContent.innerHTML = `
-                    <strong>Error Details:</strong><br>
-                    ${error.message}<br><br>
-                    <strong>Staked Balance:</strong> ${stakedBalance} MIRZA<br>
-                    <strong>Attempted to Unstake:</strong> ${amount} MIRZA<br>
-                    <strong>Account:</strong> ${accounts[0]}<br>
-                    <strong>Check browser console for more details</strong>
-                `;
             } finally {
                 document.getElementById('unstakeButton').disabled = false;
                 document.getElementById('unstakeButton').textContent = 'UNSTAKE';
-            }
-        }
-
-        // Debug function to check unstake issues
-        async function debugUnstake() {
-            if (accounts.length === 0) {
-                showNotification('Please connect your wallet first', 'warning');
-                return;
-            }
-            
-            try {
-                debugContent.innerHTML = 'Checking contract status...';
-                
-                // Check contract balance
-                const contractBalance = await mirzaToken.methods.balanceOf(STAKING_CONTRACT).call();
-                const contractBalanceFormatted = web3.utils.fromWei(contractBalance, 'ether');
-                
-                // Check staking status
-                const stakingEnabled = await stakingContract.methods.stakingEnabled().call();
-                
-                // Check user stake info
-                const stakeInfo = await stakingContract.methods.stakes(accounts[0]).call();
-                const userStaked = web3.utils.fromWei(stakeInfo.amount, 'ether');
-                const startTime = new Date(stakeInfo.startTime * 1000);
-                
-                debugContent.innerHTML = `
-                    <strong>Contract Status:</strong><br>
-                    - Staking Enabled: ${stakingEnabled}<br>
-                    - Contract MIRZA Balance: ${contractBalanceFormatted} MIRZA<br><br>
-                    
-                    <strong>Your Stake Info:</strong><br>
-                    - Staked Amount: ${userStaked} MIRZA<br>
-                    - Start Time: ${startTime.toLocaleString()}<br>
-                    - Raw Amount: ${stakeInfo.amount} wei<br><br>
-                    
-                    <strong>Account:</strong> ${accounts[0]}<br>
-                    <strong>Check browser console for complete debug info</strong>
-                `;
-                
-                console.log('=== DEBUG UNSTAKE INFO ===');
-                console.log('Contract Address:', STAKING_CONTRACT);
-                console.log('Staking Enabled:', stakingEnabled);
-                console.log('Contract Balance:', contractBalanceFormatted, 'MIRZA');
-                console.log('Your Staked Balance:', userStaked, 'MIRZA');
-                console.log('Stake Start Time:', startTime);
-                console.log('Raw Stake Amount:', stakeInfo.amount);
-                console.log('Your Account:', accounts[0]);
-                console.log('==========================');
-                
-            } catch (error) {
-                console.error('Debug error:', error);
-                debugContent.innerHTML = `Debug error: ${error.message}`;
             }
         }
 
