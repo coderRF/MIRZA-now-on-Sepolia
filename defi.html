@@ -395,6 +395,162 @@
             width: 100%;
         }
 
+        /* Swap & LP Styles */
+        .swap-lp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .swap-lp-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .swap-section, .lp-section {
+            background: rgba(0, 240, 240, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 240, 240, 0.2);
+            padding: 1.5rem;
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .input-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .input-label {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        
+        .form-input {
+            background: rgba(10, 17, 40, 0.8);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 240, 240, 0.5);
+        }
+        
+        .form-select {
+            background: rgba(10, 17, 40, 0.8);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            color: var(--text);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .btn {
+            flex: 1;
+            background: rgba(0, 240, 240, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+        
+        .btn.primary {
+            background: linear-gradient(135deg, #00f0f0, #0080ff);
+            color: var(--bg);
+        }
+        
+        .status {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            min-height: 20px;
+        }
+        
+        .status.success {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        
+        .status.error {
+            background: rgba(255, 68, 68, 0.1);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+        
+        .status.info {
+            background: rgba(0, 240, 240, 0.1);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+        }
+        
+        .info-panel {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(0, 240, 240, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 240, 240, 0.2);
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .info-label {
+            color: var(--text);
+            opacity: 0.8;
+        }
+        
+        .info-value {
+            font-family: 'Orbitron', monospace;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
         /* Notifications */
         .notification {
             position: fixed;
@@ -489,6 +645,10 @@
             
             .send-token-box {
                 padding: 1.5rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
             }
         }
     </style>
@@ -604,6 +764,97 @@
             </div>
         </div>
 
+        <!-- Swap & Liquidity Pool Section -->
+        <div class="swap-lp-grid">
+            <!-- Swap Section -->
+            <div class="swap-section">
+                <h2 class="section-title">SWAP TOKENS</h2>
+                <p style="text-align: center; margin-bottom: 1.5rem; opacity: 0.8;">Trade between ETH and MIRZA instantly</p>
+                
+                <div class="input-group">
+                    <div class="input-row">
+                        <label class="input-label">Swap Direction</label>
+                        <select id="swapDirection" class="form-select">
+                            <option value="ethToToken">ETH → MIRZA</option>
+                            <option value="tokenToEth">MIRZA → ETH</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-row">
+                        <label class="input-label">Input Amount</label>
+                        <input type="number" id="swapInput" class="form-input" placeholder="0.0" min="0" step="0.001">
+                    </div>
+                    
+                    <div class="input-row">
+                        <label class="input-label">Estimated Output</label>
+                        <input type="number" id="swapOutput" class="form-input" placeholder="0.0" readonly>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn" id="swapApproveBtn">APPROVE</button>
+                    <button class="btn primary" id="swapExecuteBtn">SWAP</button>
+                </div>
+                
+                <div class="status" id="swapStatus"></div>
+            </div>
+            
+            <!-- Liquidity Pool Section -->
+            <div class="lp-section">
+                <h2 class="section-title">LIQUIDITY POOL</h2>
+                <p style="text-align: center; margin-bottom: 1.5rem; opacity: 0.8;">Provide liquidity to earn fees</p>
+                
+                <div class="input-group">
+                    <div class="input-row">
+                        <label class="input-label">MIRZA Amount</label>
+                        <input type="number" id="lpMirzaAmount" class="form-input" placeholder="0.0" min="0" step="0.001">
+                    </div>
+                    
+                    <div class="input-row">
+                        <label class="input-label">ETH Required</label>
+                        <input type="number" id="lpEthAmount" class="form-input" placeholder="0.0" readonly>
+                    </div>
+                    
+                    <div class="input-row">
+                        <label class="input-label">Remove LP %</label>
+                        <select id="lpRemovePercent" class="form-select">
+                            <option value="25">25%</option>
+                            <option value="50">50%</option>
+                            <option value="75">75%</option>
+                            <option value="100">100%</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn" id="lpApproveBtn">APPROVE MIRZA</button>
+                    <button class="btn primary" id="lpAddBtn">ADD LIQUIDITY</button>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn" id="lpApproveRemoveBtn">APPROVE LP</button>
+                    <button class="btn" id="lpRemoveBtn">REMOVE LIQUIDITY</button>
+                </div>
+                
+                <div class="status" id="lpStatus"></div>
+                
+                <div class="info-panel">
+                    <div class="info-row">
+                        <span class="info-label">Your LP Balance:</span>
+                        <span class="info-value" id="lpBalance">0</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Pool Share:</span>
+                        <span class="info-value" id="poolShare">0%</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Current Price:</span>
+                        <span class="info-value" id="currentPrice">1 ETH = 0 MIRZA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- DeFi Products Grid - Single Column Layout -->
         <div class="defi-grid">
             <!-- Staking Card -->
@@ -656,38 +907,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Liquidity Pool Card -->
-            <div class="defi-card">
-                <div class="defi-logo">
-                    <img src="https://i.ibb.co/zH0cmJ4S/mirzalogo.png" alt="Liquidity Pools">
-                </div>
-                <h2 class="defi-title">LIQUIDITY POOLS</h2>
-                <p>Provide liquidity to earn trading fees</p>
-                <ul class="defi-features">
-                    <li>Multiple pool options</li>
-                    <li>Automated market making</li>
-                    <li>Low impermanent loss</li>
-                    <li>Real-time analytics</li>
-                </ul>
-                <button class="action-button" id="addLiquidityButton" style="margin-top: 1.5rem;">ADD LIQUIDITY</button>
-            </div>
-
-            <!-- Yield Farming Card -->
-            <div class="defi-card">
-                <div class="defi-logo">
-                    <img src="https://i.ibb.co/zH0cmJ4S/mirzalogo.png" alt="Yield Farming">
-                </div>
-                <h2 class="defi-title">YIELD FARMING</h2>
-                <p>Maximize your returns through farming</p>
-                <ul class="defi-features">
-                    <li>Optimized farming strategies</li>
-                    <li>Compound interest</li>
-                    <li>Risk management tools</li>
-                    <li>Auto-compounding vaults</li>
-                </ul>
-                <button class="action-button" id="startFarmingButton" style="margin-top: 1.5rem;">START FARMING</button>
-            </div>
         </div>
 
         <!-- CTA Section -->
@@ -711,17 +930,41 @@
     <!-- Notification Container -->
     <div id="notificationContainer"></div>
 
-    <!-- Web3 & Staking Script -->
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <!-- Ethers.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <script>
-        // Contract Addresses and ABIs
+        // Contract Addresses
         const MIRZA_TOKEN = "0xEf6A9AA442191Ecdb7B1Dd26DBE727DBA6731E16";
+        const ROUTER = "0xeE567Fe1712Faf6149d80dA1E6934E354124CfE3";
+        const PAIR = "0xc531Bee521AE8CfC546566e3449E862dB2bef460";
         const STAKING_CONTRACT = "0xde8EFE8f37086512378e207DB43C6C07377Ac323";
 
+        // ABIs
         const ERC20_ABI = [
-            { "constant":true,"inputs":[{"name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"type":"function"},
-            { "constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"amount","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"type":"function"},
-            { "constant":false,"inputs":[{"name":"to","type":"address"},{"name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"type":"function"}
+            "function approve(address spender, uint256 amount) external returns (bool)",
+            "function allowance(address owner, address spender) external view returns (uint256)",
+            "function balanceOf(address owner) view returns (uint256)",
+            "function decimals() view returns (uint8)",
+            "function symbol() view returns (string)",
+            "function transfer(address to, uint256 amount) external returns (bool)"
+        ];
+
+        const ROUTER_ABI = [
+            "function addLiquidityETH(address token, uint amountTokenDesired, uint amountTokenMin, uint amountETHMin, address to, uint deadline) payable returns (uint amountToken, uint amountETH, uint liquidity)",
+            "function removeLiquidityETH(address token, uint liquidity, uint amountTokenMin, uint amountETHMin, address to, uint deadline) returns (uint amountToken, uint amountETH)",
+            "function getAmountsOut(uint amountIn, address[] memory path) view returns (uint[] memory amounts)",
+            "function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) payable returns (uint[] memory amounts)",
+            "function swapExactTokensForETH(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline) returns (uint[] memory amounts)"
+        ];
+
+        const PAIR_ABI = [
+            "function getReserves() view returns (uint112,uint112,uint32)",
+            "function token0() view returns (address)",
+            "function token1() view returns (address)",
+            "function balanceOf(address owner) view returns (uint256)",
+            "function totalSupply() view returns (uint256)",
+            "function MINIMUM_LIQUIDITY() view returns (uint256)",
+            "function approve(address spender, uint256 amount) external returns (bool)"
         ];
 
         const STAKING_ABI = [
@@ -732,10 +975,8 @@
             { "inputs":[],"name":"stakingEnabled","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"}
         ];
 
-        let web3, accounts, mirzaToken, stakingContract;
-        let userBalance = 0;
-        let stakedBalance = 0;
-        let pendingRewards = 0;
+        let provider, signer, userAddr;
+        let routerContract, pairContract, mirzaToken, stakingContract;
 
         // DOM Elements
         const connectWalletButton = document.getElementById('connectWalletButton');
@@ -751,61 +992,94 @@
         const maxButton = document.getElementById('maxButton');
         const sendTokenButton = document.getElementById('sendTokenButton');
 
+        // Swap & LP Elements
+        const swapDirection = document.getElementById('swapDirection');
+        const swapInput = document.getElementById('swapInput');
+        const swapOutput = document.getElementById('swapOutput');
+        const swapApproveBtn = document.getElementById('swapApproveBtn');
+        const swapExecuteBtn = document.getElementById('swapExecuteBtn');
+        const swapStatus = document.getElementById('swapStatus');
+        
+        const lpMirzaAmount = document.getElementById('lpMirzaAmount');
+        const lpEthAmount = document.getElementById('lpEthAmount');
+        const lpRemovePercent = document.getElementById('lpRemovePercent');
+        const lpApproveBtn = document.getElementById('lpApproveBtn');
+        const lpAddBtn = document.getElementById('lpAddBtn');
+        const lpApproveRemoveBtn = document.getElementById('lpApproveRemoveBtn');
+        const lpRemoveBtn = document.getElementById('lpRemoveBtn');
+        const lpStatus = document.getElementById('lpStatus');
+        const lpBalance = document.getElementById('lpBalance');
+        const poolShare = document.getElementById('poolShare');
+        const currentPrice = document.getElementById('currentPrice');
+
+        /* Utility Functions */
+        function short(addr){ 
+            return addr ? addr.slice(0,6)+"..."+addr.slice(-4) : "—"; 
+        }
+
+        function toDisplayBN(bn, decimals=18){ 
+            try { 
+                return ethers.utils.formatUnits(bn, decimals); 
+            } catch(e){ 
+                return bn.toString(); 
+            } 
+        }
+
         // Initialize the application
         document.addEventListener("DOMContentLoaded", () => {
             setupMobileMenu();
+            setupEventListeners();
             
             if (window.ethereum) {
-                initializeWeb3();
+                checkConnection();
             } else {
                 showNotification('Please install MetaMask to use this dApp', 'error');
                 connectWalletButton.textContent = 'INSTALL METAMASK';
                 connectWalletButton.onclick = () => window.open('https://metamask.io/download.html', '_blank');
             }
-
-            setupEventListeners();
         });
 
-        // Initialize Web3
-        async function initializeWeb3() {
+        // Check if wallet is already connected
+        async function checkConnection() {
             try {
-                web3 = new Web3(window.ethereum);
-                
-                // Initialize contracts
-                mirzaToken = new web3.eth.Contract(ERC20_ABI, MIRZA_TOKEN);
-                stakingContract = new web3.eth.Contract(STAKING_ABI, STAKING_CONTRACT);
-                
-                // Set up account change listener
-                window.ethereum.on('accountsChanged', function (newAccounts) {
-                    accounts = newAccounts;
-                    if (accounts.length > 0) {
-                        updateSendTokenDisplay();
-                        updateUserStats();
-                    } else {
-                        disconnectWallet();
-                    }
-                });
-                
-                // Set up chain change listener
-                window.ethereum.on('chainChanged', function (chainId) {
-                    if (chainId !== '0xaa36a7') {
-                        showNotification('Please switch to Sepolia testnet', 'warning');
-                    } else {
-                        updateSendTokenDisplay();
-                        updateUserStats();
-                    }
-                });
-                
-                // Get accounts
-                accounts = await web3.eth.getAccounts();
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                const accounts = await provider.listAccounts();
                 if (accounts.length > 0) {
-                    updateSendTokenDisplay();
-                    updateUserStats();
+                    await initializeContracts();
                 }
+            } catch (error) {
+                console.log('No wallet connected');
+            }
+        }
+
+        // Initialize contracts
+        async function initializeContracts() {
+            try {
+                signer = provider.getSigner();
+                userAddr = await signer.getAddress();
+                
+                console.log("Initializing contracts...");
+                
+                // Initialize contracts with signer
+                routerContract = new ethers.Contract(ROUTER, ROUTER_ABI, signer);
+                pairContract = new ethers.Contract(PAIR, PAIR_ABI, signer);
+                mirzaToken = new ethers.Contract(MIRZA_TOKEN, ERC20_ABI, signer);
+                stakingContract = new ethers.Contract(STAKING_CONTRACT, STAKING_ABI, signer);
+                
+                console.log("Contracts initialized successfully");
+                
+                updateSendTokenDisplay();
+                updateBalances();
+                updateUserStats();
+                updateLPInfo();
+                setupMirzaAuto();
+                setupSwapEstimator();
+                
+                showNotification('Wallet connected successfully!', 'success');
                 
             } catch (error) {
-                console.error('Error initializing Web3:', error);
-                showNotification('Error connecting to wallet: ' + error.message, 'error');
+                console.error('Error initializing contracts:', error);
+                showNotification('Error initializing contracts: ' + error.message, 'error');
             }
         }
 
@@ -813,9 +1087,8 @@
         function setupEventListeners() {
             connectWalletButton.addEventListener('click', connectWallet);
             
-            // Add click listener to wallet status for disconnect
             walletStatus.addEventListener('click', function() {
-                if (accounts.length > 0) {
+                if (userAddr) {
                     disconnectWallet();
                 }
             });
@@ -829,33 +1102,62 @@
             document.getElementById('stakeMaxButton').addEventListener('click', setMaxStakeAmount);
             document.getElementById('unstakeMaxButton').addEventListener('click', setMaxUnstakeAmount);
             
-            document.getElementById('addLiquidityButton').addEventListener('click', addLiquidity);
-            document.getElementById('startFarmingButton').addEventListener('click', startFarming);
             document.getElementById('mintSbtButton').addEventListener('click', mintSbt);
+            
+            // Swap & LP event listeners
+            swapInput.addEventListener('input', estimateSwapOutput);
+            swapDirection.addEventListener('change', resetSwapFields);
+            swapApproveBtn.addEventListener('click', approveMirzaForSwap);
+            swapExecuteBtn.addEventListener('click', executeSwap);
+            
+            lpMirzaAmount.addEventListener('input', calculateETHRequired);
+            lpApproveBtn.addEventListener('click', approveMirzaForLP);
+            lpAddBtn.addEventListener('click', addLiquidity);
+            lpApproveRemoveBtn.addEventListener('click', approveLPForRemove);
+            lpRemoveBtn.addEventListener('click', removeLiquidity);
+        }
+
+        // Connect wallet
+        async function connectWallet() {
+            try {
+                if (!window.ethereum) {
+                    showNotification('Please install MetaMask', 'error');
+                    return;
+                }
+                
+                console.log("Connecting wallet...");
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                
+                // Request account access
+                await provider.send("eth_requestAccounts", []);
+                console.log("Wallet connected, initializing contracts...");
+                
+                await initializeContracts();
+                
+            } catch (error) {
+                console.error('Error connecting wallet:', error);
+                showNotification('Error connecting wallet: ' + error.message, 'error');
+            }
+        }
+
+        // Disconnect wallet
+        function disconnectWallet() {
+            userAddr = null;
+            updateSendTokenDisplay();
+            showNotification('Wallet disconnected', 'info');
         }
 
         // Update send token display
         function updateSendTokenDisplay() {
-            if (accounts.length > 0) {
-                // Update status
+            if (userAddr) {
                 statusIndicator.classList.add('connected');
-                statusText.textContent = `Connected: ${accounts[0].substring(0, 6)}...${accounts[0].substring(38)}`;
+                statusText.textContent = `Connected: ${short(userAddr)}`;
                 walletStatus.classList.add('connected');
-                
-                // Show wallet details
                 walletSummary.style.display = 'grid';
                 sendTokenForm.style.display = 'flex';
-                
-                // Update buttons
                 connectWalletButton.style.display = 'none';
-                
-                // Add connected class for animation
                 sendTokenBox.classList.add('connected');
-                
-                // Update balances
-                updateBalances();
             } else {
-                // Reset to disconnected state
                 statusIndicator.classList.remove('connected');
                 statusText.textContent = 'Not Connected';
                 walletStatus.classList.remove('connected');
@@ -866,78 +1168,18 @@
             }
         }
 
-        // Connect wallet
-        async function connectWallet() {
-            try {
-                if (!web3) {
-                    await initializeWeb3();
-                }
-                
-                accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                
-                const chainId = await web3.eth.getChainId();
-                if (chainId !== 11155111) {
-                    try {
-                        await window.ethereum.request({
-                            method: 'wallet_switchEthereumChain',
-                            params: [{ chainId: '0xaa36a7' }],
-                        });
-                    } catch (switchError) {
-                        if (switchError.code === 4902) {
-                            try {
-                                await window.ethereum.request({
-                                    method: 'wallet_addEthereumChain',
-                                    params: [
-                                        {
-                                            chainId: '0xaa36a7',
-                                            chainName: 'Sepolia Testnet',
-                                            rpcUrls: ['https://sepolia.infura.io/v3/'],
-                                            nativeCurrency: {
-                                                name: 'Sepolia Ether',
-                                                symbol: 'ETH',
-                                                decimals: 18,
-                                            },
-                                            blockExplorerUrls: ['https://sepolia.etherscan.io'],
-                                        },
-                                    ],
-                                });
-                            } catch (addError) {
-                                console.error('Error adding Sepolia network:', addError);
-                                showNotification('Please manually switch to Sepolia testnet', 'warning');
-                            }
-                        }
-                    }
-                }
-                
-                updateSendTokenDisplay();
-                updateUserStats();
-                showNotification('Wallet connected successfully!', 'success');
-                
-            } catch (error) {
-                console.error('Error connecting wallet:', error);
-                showNotification('Error connecting wallet: ' + error.message, 'error');
-            }
-        }
-
-        // Disconnect wallet
-        function disconnectWallet() {
-            accounts = [];
-            updateSendTokenDisplay();
-            showNotification('Wallet disconnected', 'info');
-        }
-
         // Update user balances
         async function updateBalances() {
-            if (accounts.length === 0) return;
+            if (!userAddr) return;
             
             try {
-                const ethBalance = await web3.eth.getBalance(accounts[0]);
-                const ethBalanceFormatted = web3.utils.fromWei(ethBalance, 'ether').substring(0, 6);
-                ethBalanceElement.textContent = `${ethBalanceFormatted} ETH`;
+                const ethBalance = await provider.getBalance(userAddr);
+                const ethBalanceFormatted = ethers.utils.formatEther(ethBalance);
+                ethBalanceElement.textContent = `${parseFloat(ethBalanceFormatted).toFixed(6)} ETH`;
                 
-                const tokenBalance = await mirzaToken.methods.balanceOf(accounts[0]).call();
-                userBalance = web3.utils.fromWei(tokenBalance, 'ether');
-                mirzaBalanceElement.textContent = `${userBalance.substring(0, 8)} MIRZA`;
+                const tokenBalance = await mirzaToken.balanceOf(userAddr);
+                const tokenBalanceFormatted = ethers.utils.formatEther(tokenBalance);
+                mirzaBalanceElement.textContent = `${parseFloat(tokenBalanceFormatted).toFixed(6)} MIRZA`;
                 
             } catch (error) {
                 console.error('Error updating balances:', error);
@@ -946,7 +1188,7 @@
 
         // Send tokens function
         async function sendTokens() {
-            if (accounts.length === 0) {
+            if (!userAddr) {
                 showNotification('Please connect your wallet first', 'warning');
                 return;
             }
@@ -959,13 +1201,8 @@
                 return;
             }
             
-            if (!recipient || !web3.utils.isAddress(recipient)) {
+            if (!recipient || !ethers.utils.isAddress(recipient)) {
                 showNotification('Please enter a valid recipient address', 'warning');
-                return;
-            }
-            
-            if (parseFloat(amount) > parseFloat(userBalance)) {
-                showNotification('Insufficient balance', 'error');
                 return;
             }
             
@@ -973,10 +1210,13 @@
                 sendTokenButton.disabled = true;
                 sendTokenButton.innerHTML = '<span class="spinner"></span> SENDING...';
                 
-                const amountWei = web3.utils.toWei(amount, 'ether');
-                await mirzaToken.methods.transfer(recipient, amountWei).send({ from: accounts[0] });
+                const amountWei = ethers.utils.parseEther(amount);
+                console.log("Sending tokens...");
+                const tx = await mirzaToken.transfer(recipient, amountWei);
+                console.log("Transaction sent:", tx.hash);
+                await tx.wait();
                 
-                showNotification(`Successfully sent ${amount} MIRZA tokens to ${recipient.substring(0, 8)}...`, 'success');
+                showNotification(`Successfully sent ${amount} MIRZA tokens to ${short(recipient)}`, 'success');
                 sendAmount.value = '';
                 recipientAddress.value = '';
                 await updateBalances();
@@ -992,21 +1232,25 @@
 
         // Set max send amount
         function setMaxSendAmount() {
-            sendAmount.value = userBalance;
+            const balanceText = mirzaBalanceElement.textContent;
+            const balance = parseFloat(balanceText);
+            if (!isNaN(balance)) {
+                sendAmount.value = balance.toFixed(6);
+            }
         }
 
         // Update user stats for staking
         async function updateUserStats() {
-            if (accounts.length === 0) return;
+            if (!userAddr) return;
             
             try {
-                const stakeInfo = await stakingContract.methods.stakes(accounts[0]).call();
-                stakedBalance = web3.utils.fromWei(stakeInfo.amount, 'ether');
-                document.getElementById('stakedBalance').textContent = `${stakedBalance.substring(0, 8)} MIRZA`;
+                const stakeInfo = await stakingContract.stakes(userAddr);
+                const stakedBalanceFormatted = ethers.utils.formatEther(stakeInfo.amount);
+                document.getElementById('stakedBalance').textContent = `${parseFloat(stakedBalanceFormatted).toFixed(6)} MIRZA`;
                 
-                const rewards = await stakingContract.methods.pendingReward(accounts[0]).call();
-                pendingRewards = web3.utils.fromWei(rewards, 'ether');
-                document.getElementById('pendingRewards').textContent = `${pendingRewards.substring(0, 8)} MIRZA`;
+                const rewards = await stakingContract.pendingReward(userAddr);
+                const rewardsFormatted = ethers.utils.formatEther(rewards);
+                document.getElementById('pendingRewards').textContent = `${parseFloat(rewardsFormatted).toFixed(6)} MIRZA`;
                 
             } catch (error) {
                 console.error('Error updating user stats:', error);
@@ -1015,7 +1259,7 @@
 
         // Stake tokens
         async function stakeTokens() {
-            if (accounts.length === 0) {
+            if (!userAddr) {
                 showNotification('Please connect your wallet first', 'warning');
                 return;
             }
@@ -1026,23 +1270,22 @@
                 return;
             }
             
-            if (parseFloat(amount) > parseFloat(userBalance)) {
-                showNotification('Insufficient balance', 'error');
-                return;
-            }
-            
             try {
                 const stakeButton = document.getElementById('stakeButton');
                 stakeButton.disabled = true;
                 stakeButton.innerHTML = '<span class="spinner"></span> STAKING...';
                 
-                const amountWei = web3.utils.toWei(amount, 'ether');
+                const amountWei = ethers.utils.parseEther(amount);
                 
                 // First, approve the staking contract to spend tokens
-                await mirzaToken.methods.approve(STAKING_CONTRACT, amountWei).send({ from: accounts[0] });
+                console.log("Approving tokens for staking...");
+                const approveTx = await mirzaToken.approve(STAKING_CONTRACT, amountWei);
+                await approveTx.wait();
                 
                 // Then, stake the tokens
-                await stakingContract.methods.stake(amountWei).send({ from: accounts[0] });
+                console.log("Staking tokens...");
+                const stakeTx = await stakingContract.stake(amountWei);
+                await stakeTx.wait();
                 
                 showNotification(`Successfully staked ${amount} MIRZA tokens!`, 'success');
                 document.getElementById('stakeAmount').value = '';
@@ -1060,7 +1303,7 @@
 
         // Unstake tokens
         async function unstakeTokens() {
-            if (accounts.length === 0) {
+            if (!userAddr) {
                 showNotification('Please connect your wallet first', 'warning');
                 return;
             }
@@ -1073,30 +1316,15 @@
                 return;
             }
             
-            if (parseFloat(amount) > parseFloat(stakedBalance)) {
-                showNotification('Cannot unstake more than your staked balance', 'error');
-                return;
-            }
-            
             try {
                 const unstakeButton = document.getElementById('unstakeButton');
                 unstakeButton.disabled = true;
                 unstakeButton.innerHTML = '<span class="spinner"></span> UNSTAKING...';
                 
-                // Check if staking is enabled
-                const stakingEnabled = await stakingContract.methods.stakingEnabled().call();
-                if (!stakingEnabled) {
-                    showNotification('Staking is currently disabled', 'error');
-                    return;
-                }
-                
-                const amountWei = web3.utils.toWei(amount, 'ether');
-                
-                // Call unstake with the specific amount
-                const receipt = await stakingContract.methods.unstake(amountWei).send({ 
-                    from: accounts[0],
-                    gas: 300000
-                });
+                const amountWei = ethers.utils.parseEther(amount);
+                console.log("Unstaking tokens...");
+                const receipt = await stakingContract.unstake(amountWei);
+                await receipt.wait();
                 
                 showNotification(`Successfully unstaked ${amount} MIRZA tokens and claimed rewards!`, 'success');
                 unstakeAmountInput.value = '';
@@ -1106,24 +1334,7 @@
                 
             } catch (error) {
                 console.error('Error unstaking tokens:', error);
-                
-                let errorMessage = 'Error unstaking tokens: ';
-                
-                if (error.message.includes('user rejected')) {
-                    errorMessage = 'Transaction was rejected by user';
-                } else if (error.message.includes('insufficient funds')) {
-                    errorMessage = 'Insufficient ETH for gas fees';
-                } else if (error.message.includes('Staking disabled')) {
-                    errorMessage = 'Staking is currently disabled';
-                } else if (error.message.includes('Invalid amount')) {
-                    errorMessage = 'Invalid unstake amount';
-                } else if (error.message.includes('exceeds staked')) {
-                    errorMessage = 'Cannot unstake more than staked balance';
-                } else {
-                    errorMessage += error.message;
-                }
-                
-                showNotification(errorMessage, 'error');
+                showNotification('Error unstaking tokens: ' + error.message, 'error');
             } finally {
                 document.getElementById('unstakeButton').disabled = false;
                 document.getElementById('unstakeButton').textContent = 'UNSTAKE';
@@ -1132,7 +1343,7 @@
 
         // Check reward
         async function checkReward() {
-            if (accounts.length === 0) {
+            if (!userAddr) {
                 showNotification('Please connect your wallet first', 'warning');
                 return;
             }
@@ -1143,7 +1354,8 @@
                 checkRewardButton.innerHTML = '<span class="spinner"></span> CHECKING...';
                 
                 await updateUserStats();
-                showNotification(`Your pending rewards: ${pendingRewards.substring(0, 8)} MIRZA`, 'info');
+                const rewards = document.getElementById('pendingRewards').textContent;
+                showNotification(`Your pending rewards: ${rewards}`, 'info');
                 
             } catch (error) {
                 console.error('Error checking reward:', error);
@@ -1156,33 +1368,498 @@
 
         // Set max stake amount
         function setMaxStakeAmount() {
-            document.getElementById('stakeAmount').value = userBalance;
+            const balanceText = mirzaBalanceElement.textContent;
+            const balance = parseFloat(balanceText);
+            if (!isNaN(balance)) {
+                document.getElementById('stakeAmount').value = balance.toFixed(6);
+            }
         }
 
         // Set max unstake amount
         function setMaxUnstakeAmount() {
-            document.getElementById('unstakeAmount').value = stakedBalance;
+            const stakedText = document.getElementById('stakedBalance').textContent;
+            const staked = parseFloat(stakedText);
+            if (!isNaN(staked)) {
+                document.getElementById('unstakeAmount').value = staked.toFixed(6);
+            }
         }
+
+        /* ---------- LP & Swap Functions ---------- */
+
+        /* Update LP info */
+        async function updateLPInfo(){
+            if(!provider || !userAddr) return;
+            try{
+                const readPair = pairContract.connect(provider);
+                const [r0, r1] = await readPair.getReserves();
+                const t0 = await readPair.token0();
+                const t1 = await readPair.token1();
+
+                const totalSupply = await readPair.totalSupply();
+                const lpBal = await readPair.balanceOf(userAddr);
+
+                let depositedMirza, depositedETH;
+                if(t0.toLowerCase() === MIRZA_TOKEN.toLowerCase()){
+                    depositedMirza = lpBal.mul(r0).div(totalSupply);
+                    depositedETH = lpBal.mul(r1).div(totalSupply);
+                } else {
+                    depositedMirza = lpBal.mul(r1).div(totalSupply);
+                    depositedETH = lpBal.mul(r0).div(totalSupply);
+                }
+
+                lpBalance.textContent = toDisplayBN(lpBal, 18);
+                
+                // Calculate pool share percentage
+                const sharePercentage = lpBal.mul(10000).div(totalSupply).toNumber() / 100;
+                poolShare.textContent = sharePercentage.toFixed(4) + '%';
+
+                // Calculate current price
+                let priceText = "";
+                try {
+                    if(t0.toLowerCase() === MIRZA_TOKEN.toLowerCase()){
+                        const mirzaPerETH = r1.mul(ethers.constants.WeiPerEther).div(r0);
+                        priceText = `1 ETH = ${ethers.utils.formatUnits(mirzaPerETH, 18).substring(0,8)} MIRZA`;
+                    } else {
+                        const mirzaPerETH = r0.mul(ethers.constants.WeiPerEther).div(r1);
+                        priceText = `1 ETH = ${ethers.utils.formatUnits(mirzaPerETH, 18).substring(0,8)} MIRZA`;
+                    }
+                } catch(e){ 
+                    priceText = "Price unavailable";
+                }
+                currentPrice.textContent = priceText;
+            } catch(e){
+                console.error("updateLPInfo failed", e);
+            }
+        }
+
+        /* MIRZA -> ETH auto-calc using reserves */
+        function setupMirzaAuto(){
+            if(!pairContract) return;
+            const readPair = pairContract.connect(provider);
+            lpMirzaAmount.addEventListener("input", async () => {
+                const v = lpMirzaAmount.value;
+                if(!v || Number(v) <= 0){ 
+                    lpEthAmount.value = ""; 
+                    return; 
+                }
+                try{
+                    const mirzaAmount = ethers.utils.parseUnits(v.toString(), 18);
+                    const [res0, res1] = await readPair.getReserves();
+                    const t0 = await readPair.token0();
+                    
+                    let mirzaReserve = t0.toLowerCase() === MIRZA_TOKEN.toLowerCase() ? res0 : res1;
+                    let ethReserve = t0.toLowerCase() === MIRZA_TOKEN.toLowerCase() ? res1 : res0;
+                    
+                    if(mirzaReserve.isZero()){ 
+                        lpEthAmount.value = "0"; 
+                        return; 
+                    }
+                    
+                    const ethAmount = mirzaAmount.mul(ethReserve).div(mirzaReserve);
+                    lpEthAmount.value = ethers.utils.formatEther(ethAmount);
+                } catch(e){
+                    console.error("ETH calculation error", e);
+                    lpEthAmount.value = "";
+                }
+            });
+        }
+
+        /* Approve MIRZA to Router for LP */
+        async function approveMirzaForLP() {
+            if(!mirzaToken || !signer) {
+                showNotification('Connect wallet first', 'warning');
+                return;
+            }
+            
+            const v = lpMirzaAmount.value;
+            if(!v || Number(v) <= 0) {
+                showNotification('Enter MIRZA amount to approve', 'warning');
+                return;
+            }
+            
+            try {
+                lpStatus.innerText = "Approving MIRZA...";
+                lpStatus.className = "status info";
+                
+                const amount = ethers.utils.parseUnits(v.toString(), 18);
+                console.log("Approving MIRZA for LP...");
+                const tx = await mirzaToken.approve(ROUTER, amount);
+                console.log("Approval transaction:", tx.hash);
+                await tx.wait();
+                
+                lpStatus.innerText = "MIRZA approved for liquidity!";
+                lpStatus.className = "status success";
+                
+            } catch(e) {
+                console.error("Approve error:", e);
+                lpStatus.innerText = "Approve failed: " + (e.reason || e.message || e);
+                lpStatus.className = "status error";
+            }
+        }
+
+        /* Add liquidity via router.addLiquidityETH */
+        async function addLiquidity() {
+            if(!routerContract || !signer) {
+                showNotification('Connect wallet first', 'warning');
+                return;
+            }
+            
+            const v = lpMirzaAmount.value; 
+            const ethV = lpEthAmount.value;
+            
+            if(!v || Number(v) <= 0 || !ethV || Number(ethV) <= 0) {
+                showNotification('Enter MIRZA amount (ETH will be calculated automatically)', 'warning');
+                return;
+            }
+
+            try {
+                lpStatus.innerText = "Adding liquidity...";
+                lpStatus.className = "status info";
+                
+                const amountTokenDesired = ethers.utils.parseUnits(v.toString(), 18);
+                const value = ethers.utils.parseEther(ethV.toString());
+                const deadline = Math.floor(Date.now()/1000) + 60*20; // 20 minutes
+                
+                console.log("Adding liquidity with params:", {
+                    token: MIRZA_TOKEN,
+                    amountTokenDesired: amountTokenDesired.toString(),
+                    value: value.toString(),
+                    deadline
+                });
+                
+                const tx = await routerContract.addLiquidityETH(
+                    MIRZA_TOKEN,
+                    amountTokenDesired,
+                    0, // slippage min token
+                    0, // slippage min eth
+                    userAddr,
+                    deadline,
+                    { value: value }
+                );
+                
+                console.log("Add liquidity transaction:", tx.hash);
+                await tx.wait();
+                
+                lpStatus.innerText = "Liquidity added successfully!";
+                lpStatus.className = "status success";
+                
+                await updateLPInfo();
+                await updateBalances();
+                
+            } catch(e) {
+                console.error("Add liquidity error:", e);
+                lpStatus.innerText = "Add liquidity failed: " + (e.reason || e.message || e);
+                lpStatus.className = "status error";
+            }
+        }
+
+        /* Approve LP tokens to router for remove */
+        async function approveLPForRemove() {
+            if(!pairContract || !signer) {
+                showNotification('Connect wallet first', 'warning');
+                return;
+            }
+            
+            try {
+                lpStatus.innerText = "Approving LP tokens...";
+                lpStatus.className = "status info";
+                
+                // Approve max
+                console.log("Approving LP tokens...");
+                const tx = await pairContract.approve(ROUTER, ethers.constants.MaxUint256);
+                console.log("LP approval transaction:", tx.hash);
+                await tx.wait();
+                
+                lpStatus.innerText = "LP tokens approved!";
+                lpStatus.className = "status success";
+                
+            } catch(e) {
+                console.error("LP approve error:", e);
+                lpStatus.innerText = "Approve LP failed: " + (e.reason || e.message || e);
+                lpStatus.className = "status error";
+            }
+        }
+
+        /* Remove liquidity using router.removeLiquidityETH */
+        async function removeLiquidity() {
+            if(!routerContract || !pairContract || !signer) {
+                showNotification('Connect wallet first', 'warning');
+                return;
+            }
+            
+            try {
+                lpStatus.innerText = "Preparing removal...";
+                lpStatus.className = "status info";
+                
+                const lpBalance = await pairContract.balanceOf(userAddr);
+                
+                // Check if user has any LP tokens
+                if(lpBalance.isZero()) {
+                    lpStatus.innerText = "No LP tokens to remove";
+                    lpStatus.className = "status error";
+                    return;
+                }
+
+                const percent = Number(lpRemovePercent.value);
+                let liquidityToRemove = lpBalance.mul(percent).div(100);
+
+                // For 100% removal, check minimum liquidity
+                if(percent === 100) {
+                    const MIN = await pairContract.MINIMUM_LIQUIDITY();
+                    if(lpBalance.lte(MIN)) {
+                        lpStatus.innerText = "Cannot remove 100% - below minimum liquidity";
+                        lpStatus.className = "status error";
+                        return;
+                    }
+                    liquidityToRemove = lpBalance.sub(MIN);
+                }
+
+                if(liquidityToRemove.lte(0)) {
+                    lpStatus.innerText = "No liquidity to remove";
+                    lpStatus.className = "status error";
+                    return;
+                }
+
+                // Check allowance
+                const allowance = await pairContract.allowance(userAddr, ROUTER);
+                if(allowance.lt(liquidityToRemove)) {
+                    lpStatus.innerText = "Please approve LP tokens first";
+                    lpStatus.className = "status warning";
+                    return;
+                }
+
+                lpStatus.innerText = "Removing liquidity...";
+                lpStatus.className = "status info";
+                
+                const deadline = Math.floor(Date.now()/1000) + 60*20; // 20 minutes
+                
+                console.log("Removing liquidity with params:", {
+                    token: MIRZA_TOKEN,
+                    liquidity: liquidityToRemove.toString(),
+                    deadline
+                });
+                
+                const tx = await routerContract.removeLiquidityETH(
+                    MIRZA_TOKEN,
+                    liquidityToRemove,
+                    0, // min token out
+                    0, // min eth out
+                    userAddr,
+                    deadline
+                );
+                
+                console.log("Remove liquidity transaction:", tx.hash);
+                await tx.wait();
+                
+                lpStatus.innerText = "Liquidity removed successfully!";
+                lpStatus.className = "status success";
+                
+                await updateLPInfo();
+                await updateBalances();
+                
+            } catch(e) {
+                console.error("Remove liquidity error:", e);
+                lpStatus.innerText = "Remove failed: " + (e.reason || e.message || e);
+                lpStatus.className = "status error";
+            }
+        }
+
+        /* Setup swap estimator */
+        function setupSwapEstimator(){
+            swapInput.addEventListener("input", async () => {
+                await estimateSwapOutput();
+            });
+            
+            swapDirection.addEventListener("change", () => {
+                swapInput.value = ""; 
+                swapOutput.value = "";
+            });
+        }
+
+        /* Estimate output for swap */
+        async function estimateSwapOutput(){
+            try {
+                if(!routerContract) return;
+                
+                const dir = swapDirection.value;
+                const v = swapInput.value;
+                
+                if(!v || Number(v) <= 0) { 
+                    swapOutput.value = ""; 
+                    return; 
+                }
+
+                if(dir === "ethToToken"){
+                    const amountIn = ethers.utils.parseEther(v.toString());
+                    
+                    // Get WETH address from pair
+                    const t0 = await pairContract.token0();
+                    const t1 = await pairContract.token1();
+                    const WETH = t0.toLowerCase() === MIRZA_TOKEN.toLowerCase() ? t1 : t0;
+                    
+                    const amounts = await routerContract.getAmountsOut(amountIn, [WETH, MIRZA_TOKEN]);
+                    const out = amounts[1];
+                    swapOutput.value = ethers.utils.formatUnits(out, 18);
+                    
+                } else {
+                    // tokenToEth : MIRZA -> ETH
+                    const amountIn = ethers.utils.parseUnits(v.toString(), 18);
+                    
+                    // Get WETH address from pair
+                    const t0 = await pairContract.token0();
+                    const t1 = await pairContract.token1();
+                    const WETH = t0.toLowerCase() === MIRZA_TOKEN.toLowerCase() ? t1 : t0;
+                    
+                    const amounts = await routerContract.getAmountsOut(amountIn, [MIRZA_TOKEN, WETH]);
+                    const out = amounts[1];
+                    swapOutput.value = ethers.utils.formatEther(out);
+                }
+            } catch(e) {
+                console.error("Swap estimation error:", e);
+                swapOutput.value = "";
+            }
+        }
+
+        function resetSwapFields() {
+            swapInput.value = ""; 
+            swapOutput.value = "";
+        }
+
+        /* Approve MIRZA for swaps */
+        async function approveMirzaForSwap() {
+            if(!mirzaToken || !signer) {
+                showNotification('Connect wallet first', 'warning');
+                return;
+            }
+            
+            try {
+                swapStatus.innerText = "Approving MIRZA for swap...";
+                swapStatus.className = "status info";
+                
+                console.log("Approving MIRZA for swap...");
+                const tx = await mirzaToken.approve(ROUTER, ethers.constants.MaxUint256);
+                console.log("Swap approval transaction:", tx.hash);
+                await tx.wait();
+                
+                swapStatus.innerText = "MIRZA approved for swapping!";
+                swapStatus.className = "status success";
+                
+            } catch(e) {
+                console.error("Swap approve error:", e);
+                swapStatus.innerText = "Approve failed: " + (e.reason || e.message || e);
+                swapStatus.className = "status error";
+            }
+        }
+
+        /* Execute swap */
+        async function executeSwap() {
+            if(!routerContract || !signer) {
+                showNotification('Connect wallet first', 'warning');
+                return;
+            }
+            
+            const dir = swapDirection.value;
+            const v = swapInput.value;
+            
+            if(!v || Number(v) <= 0) {
+                showNotification('Enter amount', 'warning');
+                return;
+            }
+
+            try {
+                swapStatus.innerText = "Executing swap...";
+                swapStatus.className = "status info";
+                
+                if(dir === "ethToToken"){
+                    const amountIn = ethers.utils.parseEther(v.toString());
+                    
+                    // Get WETH address from pair
+                    const t0 = await pairContract.token0();
+                    const t1 = await pairContract.token1();
+                    const WETH = t0.toLowerCase() === MIRZA_TOKEN.toLowerCase() ? t1 : t0;
+                    const path = [WETH, MIRZA_TOKEN];
+                    const deadline = Math.floor(Date.now()/1000) + 60*20;
+                    
+                    console.log("ETH to Token swap:", {
+                        amountIn: amountIn.toString(),
+                        path,
+                        deadline
+                    });
+                    
+                    const tx = await routerContract.swapExactETHForTokens(
+                        0, // amountOutMin
+                        path,
+                        userAddr,
+                        deadline,
+                        { value: amountIn }
+                    );
+                    
+                    console.log("Swap transaction:", tx.hash);
+                    await tx.wait();
+                    swapStatus.innerText = "ETH → MIRZA swap completed!";
+                    swapStatus.className = "status success";
+                    
+                } else {
+                    // token->ETH
+                    const amountIn = ethers.utils.parseUnits(v.toString(), 18);
+                    
+                    // Check approval
+                    const allowance = await mirzaToken.allowance(userAddr, ROUTER);
+                    if(allowance.lt(amountIn)) {
+                        swapStatus.innerText = "Please approve MIRZA first";
+                        swapStatus.className = "status warning";
+                        return;
+                    }
+                    
+                    // Get WETH address from pair
+                    const t0 = await pairContract.token0();
+                    const t1 = await pairContract.token1();
+                    const WETH = t0.toLowerCase() === MIRZA_TOKEN.toLowerCase() ? t1 : t0;
+                    const path = [MIRZA_TOKEN, WETH];
+                    const deadline = Math.floor(Date.now()/1000) + 60*20;
+                    
+                    console.log("Token to ETH swap:", {
+                        amountIn: amountIn.toString(),
+                        path,
+                        deadline
+                    });
+                    
+                    const tx = await routerContract.swapExactTokensForETH(
+                        amountIn,
+                        0, // amountOutMin
+                        path,
+                        userAddr,
+                        deadline
+                    );
+                    
+                    console.log("Swap transaction:", tx.hash);
+                    await tx.wait();
+                    swapStatus.innerText = "MIRZA → ETH swap completed!";
+                    swapStatus.className = "status success";
+                }
+                
+                await updateLPInfo();
+                await updateBalances();
+                
+            } catch(e) {
+                console.error("Swap execution error:", e);
+                swapStatus.innerText = "Swap failed: " + (e.reason || e.message || e);
+                swapStatus.className = "status error";
+            }
+        }
+
+        /* Periodic refresh */
+        setInterval(() => { 
+            if(userAddr) {
+                updateLPInfo();
+                updateBalances();
+                updateUserStats();
+            } 
+        }, 15000);
 
         // Other functions
-        async function addLiquidity() {
-            if (accounts.length === 0) {
-                showNotification('Please connect your wallet first', 'warning');
-                return;
-            }
-            showNotification('Liquidity feature coming soon!', 'info');
-        }
-
-        async function startFarming() {
-            if (accounts.length === 0) {
-                showNotification('Please connect your wallet first', 'warning');
-                return;
-            }
-            showNotification('Yield farming feature coming soon!', 'info');
-        }
-
         async function mintSbt() {
-            if (accounts.length === 0) {
+            if (!userAddr) {
                 showNotification('Please connect your wallet first', 'warning');
                 return;
             }
